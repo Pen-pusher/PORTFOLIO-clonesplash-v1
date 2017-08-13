@@ -234,3 +234,21 @@ body {
   padding:2px;
   line-height:1.8;
 }
+
+.landing-render-wrapper {
+  max-width:1200px;
+}
+
+.landing-render-nav {
+  width:100%;
+  position:relative;
+  display:block;
+  height:32px;
+  margin-bottom:24px;
+  line-height:32px;
+  vertical-align:middle;
+}
+
+.landing-nav-content-selectors {
+  float:left;
+}
