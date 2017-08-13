@@ -1,0 +1,236 @@
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+  background: transparent;
+}
+
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Open Sans', sans-serif;
+  box-sizing:border-box;
+  height:100%;
+}
+
+/*----------------------APP-----------------------*/
+
+.app-wrapper {
+  height:100%;
+  background:#FFFFFF; 
+}
+
+/*----------------------HEADER-----------------------*/
+
+.header-wrapper {
+  width:100%;
+  height:62px;
+  background:#FFFFFF;
+  padding-left:20px;
+  padding-right:20px; 
+  display:flex;
+  align-items:center;
+  position:fixed;
+  z-index:6;
+}
+
+.header-left-search {
+  display:flex;
+  flex:1;
+  align-items:center;
+}
+
+.logo-header {
+  height:39px;
+  width:50px;
+  padding-top:4px;
+}
+
+.search-header-wrapper {
+  width:100%;
+  box-sizing:border-box;
+}
+
+.search-header {
+  width:100%;
+  display:flex;
+  align-items:center;
+  position:relative;
+  color:#111;
+}
+
+.search-header-input {
+  width:100%;
+  height:36px;
+  padding:0 30px 2px 42px;
+  border-radius:20px;
+  outline:none;
+  border:1px solid transparent; 
+  background:#f1f1f1;
+  color:#111111;
+  font-size:14px;
+}
+
+.search-header-button {
+  width:44px;
+  height:40px;
+  position:absolute;
+  top:0;
+  left:0;
+  border:0;
+  outline:0;
+  background:transparent;
+  padding-top:4px;
+}
+
+.search-header-svg {
+  fill:#111111;
+}
+
+.header-menu-wrapper {
+  padding-right:36px;
+  padding-left:36px;
+  text-align:center;
+}
+
+.header-menu-list-wrapper {
+  list-style-type:none;
+}
+
+.header-menu-list-item {
+  display:inline-block;
+  font-size:14px;
+}
+
+.header-menu-list-anchor {
+  padding:22px 12px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  text-decoration:none;
+  color:#999999;
+  transition:color .2s ease-in-out,opacity .2s ease-in-out;  
+}
+
+.header-menu-list-anchor:hover {
+  color:#111111;
+  transition:color .2s ease-in-out,opacity .2s ease-in-out;
+}
+
+.header-menu-list-drop {
+  position:relative;
+  display:inline-block;
+}
+
+.header-menu-list-drop-button {
+  line-height:1;
+  color:#999999;
+  fill:currentColor;
+  vertical-align:middle;
+  border:none;
+  outline:none;
+  transition:all .2s ease-in-out;
+  background:transparent;
+  height:62px;
+  padding:0 12px;
+}
+
+.header-menu-list-drop-button:hover {
+  cursor:pointer;
+  color:#111111;
+}
+
+.header-menu-dot-svg {
+  width:18px;
+  height:18px;
+  vertical-align:middle;
+}
+
+.header-login-wrapper {
+  display:flex;
+  position:relative;
+  height:32px;
+  align-items:center;
+}
+
+.header-login-left-divider {
+  position: absolute;
+  top: 0;
+  left: -18px;
+  display: inline-block;
+  width: 1px;
+  height: 32px;
+  content: "";
+  background-color: #ddd;
+}
+
+.header-login-anchor {
+  padding:22px 12px;
+  display:inline-block;
+  text-decoration:none;
+  color:#999999;
+  transition:color .2s ease-in-out,opacity .2s ease-in-out;
+  margin-right:14px;
+  font-size:14px;
+}
+
+.header-login-anchor:hover {
+  color:#111111;
+  transition:color .2s ease-in-out,opacity .2s ease-in-out;
+}
+
+.header-signup-anchor {
+  padding:22px 12px;
+  display:inline-block;
+  text-decoration:none;
+  color:#FFFFFF;
+  transition:all .2s ease-in-out,opacity .2s ease-in-out;
+  margin-right:42px;
+  font-size:14px;
+  height:32px;
+  padding:0 11px;
+  line-height:29px;
+  background:#3cb46e;
+  border-radius:6px;
+  border:1px solid transparent;
+  box-shadow: 0 1px 1px rgba(0,0,0,.04);
+}
+
+.header-signup-anchor:hover {
+  background:#2b9658;
+  transition:all .2s ease-in-out;
+}
+
+/*----------------------LANDING-----------------------*/
+
+.landing-wrapper {
+  box-sizing:border-box;
+}
+.welcome-wrapper {
+  /* box-sizing:border-box; */
+  max-width:1200px;
+  height:327px;
+  padding-top:120px;
+  padding-bottom:72px;
+  margin-right:auto;
+  margin-left:auto;
+}
+
+.welcome-wrapper h1 {
+  margin:0 0 24px;
+  font-size:46px;
+  font-weight:700;
+  line-height:1.2;
+  margin-bottom:16px;
+}
+
+.welcome-wrapper h2 {
+  font-weight:500;
+  font-size:17px;
+  padding:2px;
+  line-height:1.8;
+}
