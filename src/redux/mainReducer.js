@@ -1,7 +1,11 @@
-import {newPhotos} from './un-data-new'
+import {newPhotos} from './un-data-new';
+import {trendingPhotos} from './un-data-trending';
 
 const initialState = {
-    dummyData: newPhotos,
+    dummyData: {
+        New: newPhotos,
+        Trending: trendingPhotos
+    },
     currentUser: {},
     sessionLikes: [],
 

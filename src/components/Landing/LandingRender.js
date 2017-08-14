@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import {activeAnchor} from './../../styles/JSX-styles';
 import {connect} from 'react-redux';
+import {Link} from 'react-router-dom';
 import TilePhotoCard from './../Cards/TilePhotoCard';
  
 
@@ -35,14 +35,15 @@ class LandingRender extends Component {
                 windowWidth: 3
             })
         }
-        console.log(this.state.windowWidth)
-        this.parseData(this.props.dummyData, this.state.windowWidth)
+        let content = this.state.activeToggle;
+        this.parseData(this.props.dummyData[content], this.state.windowWidth)
     }
 
     componentDidMount() {
+        console.log(window.location.href)
+        this.setState({activeToggle:this.props.view})
         window.addEventListener("load", this.trackDimensions)
         window.addEventListener("resize", this.trackDimensions)
-        console.log(this.state.photoArrays)
     }
 
     componentWillUnmount() {
@@ -89,9 +90,9 @@ class LandingRender extends Component {
         })
     }
 
+
+
     render() {
-
-
 
         const renderListOne = this.state.photoArrays[0].map(item => {
             return <TilePhotoCard 
@@ -138,15 +139,25 @@ class LandingRender extends Component {
             "display": "none"
         }
 
+        const activeAnchor = {
+            "color":"#111111"
+        }
+
         return(
             <main className="landing-render-wrapper">
                 <nav className="landing-render-nav">
                     <span className="landing-render-content-selectors">
                         <div className="lrcs-div">
-                            <a className="landing-render-content-anchor lrca-trending" href="#" style={this.state.activeToggle === 'Trending' ? activeAnchor : null}>
+                            <a className="landing-render-content-anchor lrca-trending"
+                                href="/"
+                                style={this.state.activeToggle === 'Trending' ? activeAnchor : null}
+                                >
                                 Trending
                             </a>
-                            <a className="landing-render-content-anchor lrca-new" href="#">
+                            <a className="landing-render-content-anchor lrca-new"
+                                href="/new"
+                                style={this.state.activeToggle === 'New' ? activeAnchor : null}
+                                >
                                 New
                             </a>
                         </div>

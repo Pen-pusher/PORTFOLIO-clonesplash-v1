@@ -18,7 +18,7 @@ export default function() {
                     </div>
                 </div>
             </div>
-            <LandingRender />
+            <LandingRender view={'Trending'} />
         </main>
     )
 }

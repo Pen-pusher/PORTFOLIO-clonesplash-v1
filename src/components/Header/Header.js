@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
-import {activeAnchor} from './../../styles/JSX-styles';
 
 
 class Header extends Component {
@@ -14,7 +13,7 @@ class Header extends Component {
 
     render() {
 
-        const activeLinkStyle = {
+        const activeAnchor = {
             "color":"#111111"
         }
 

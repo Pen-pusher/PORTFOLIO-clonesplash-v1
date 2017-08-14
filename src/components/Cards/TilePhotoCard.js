@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Popup} from 'semantic-ui-react';
+import {Button, Popup} from 'semantic-ui-react';
 
 
 class TilePhotoCard extends Component {
@@ -35,6 +35,7 @@ class TilePhotoCard extends Component {
             "display": "none"
         }
 
+
         return(
             <main 
                 className="tile-card-wrapper"
@@ -65,9 +66,9 @@ class TilePhotoCard extends Component {
                     <div className="tc-bottom-wrapper">
                         <div className="tc-user-div" style={this.state.mouseOver ? null : classHidden}>
                             <a href="#">
-                                <div className="tc-profile-pic">
-                                    <img src={this.props.profilePic} />
-                                </div>
+                                     <div className="tc-profile-pic">
+                                        <img src={this.props.profilePic} />
+                                    </div> 
                             </a>
                             <a href="#">
                                 <span>
