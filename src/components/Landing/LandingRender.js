@@ -101,6 +101,7 @@ class LandingRender extends Component {
                 profilePic={item.user.profile_image.small}
                 imgUrl={item.urls.small}
                 likes={item.likes}
+                liked={item.liked_by_user}
                 download={item.links.download}
                 />
         })
@@ -111,6 +112,7 @@ class LandingRender extends Component {
                 profilePic={item.user.profile_image.small}
                 download={item.links.download}
                 likes={item.likes}
+                liked={item.liked_by_user}
                 imgUrl={item.urls.small}
 
                 />
@@ -122,6 +124,7 @@ class LandingRender extends Component {
                 profilePic={item.user.profile_image.small}
                 imgUrl={item.urls.small}
                 likes={item.likes}
+                liked={item.liked_by_user}
                 download={item.links.download}
 
                 />

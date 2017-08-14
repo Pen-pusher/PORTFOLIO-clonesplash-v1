@@ -10,7 +10,7 @@ const express = require('express')
 , dbConfig = require('./../config/db-config')
 , app = express()
 , path = require('path')
-, port = process.env.port
+, port = process.env.PORT
 , appURL = process.env.REACT_APP_BASEURL;
 
 app.use(bodyParser.json());

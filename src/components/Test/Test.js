@@ -1,15 +1,16 @@
 import React from 'react';
 import axios from 'axios';
+import {addNewPhotos} from './../../redux/mainReducer';
+import {connect} from 'react-redux';
 
 
-const apiTest = () => {
-    axios.get(`https://api.unsplash.com/photos&client_id=524c632b23eb300633c46a41aebfd0d81040407e6ada5b5a85b330711da5043f`)
-    .then(res => {
-        console.log(res)
-    })
+const runGet = () => {
+    console.log(this.props)
+    addNewPhotos(1)
 }
 
-export default function Test() {
+
+const Test = () => {
 
     return(
         <main>
@@ -19,7 +20,13 @@ export default function Test() {
             <br />
             <br/ >
 
-            <button onClick={apiTest()}>Test API</button>
+            <button onClick={runGet}>Test API</button>
         </main>
     )
 }
+
+function mapStateToProps(state) {
+    return state;
+}
+
+export default connect(mapStateToProps, {addNewPhotos})(Test);

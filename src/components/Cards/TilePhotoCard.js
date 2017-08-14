@@ -7,11 +7,17 @@ class TilePhotoCard extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            mouseOver: false
+            mouseOver: false,
+            isLiked: false
         }
 
         this.handleMouseEnter = this.handleMouseEnter.bind(this);
         this.handleMouseLeave = this.handleMouseLeave.bind(this);
+        this.handleLike = this.handleLike.bind(this);
+    }
+
+    componentDidMount() {
+        this.props.liked ? this.setState({isLiked:true}) : null;
     }
 
 
@@ -27,6 +33,19 @@ class TilePhotoCard extends Component {
         })
     }
 
+    handleLike(e) {
+        e.preventDefault()
+        this.state.isLiked ?
+        this.setState({
+            isLiked:false
+        }) :
+        this.setState({
+            isLiked: true
+        })
+    }
+
+
+
     render() {
 
 
@@ -34,6 +53,14 @@ class TilePhotoCard extends Component {
         const classHidden = {
             "display": "none"
         }
+
+        const classLiked = {
+            "color":"#FFFFFF",
+            "fill":"#FFFFFF",
+            "background":"#F15151"
+        }
+
+        let isLiked = this.state.isLiked;
 
 
         return(
@@ -55,11 +82,11 @@ class TilePhotoCard extends Component {
                             </a>
                         </div>
                         <div className="tc-likes-div">
-                            <a href="#" className="tc-likes-anchor">
+                            <a onClick={this.handleLike} className="tc-likes-anchor" style={isLiked ? classLiked : null}>
                                 <svg version="1.1" viewBox="0 0 32 32" width="16" height="16" aria-hidden="false">
-                                    <path fill="#F15151" d="M17.4 29c-.8.8-2 .8-2.8 0l-12.3-12.8c-3.1-3.1-3.1-8.2 0-11.4 3.1-3.1 8.2-3.1 11.3 0l2.4 2.8 2.3-2.8c3.1-3.1 8.2-3.1 11.3 0 3.1 3.1 3.1 8.2 0 11.4l-12.2 12.8z"></path>
+                                    <path d="M17.4 29c-.8.8-2 .8-2.8 0l-12.3-12.8c-3.1-3.1-3.1-8.2 0-11.4 3.1-3.1 8.2-3.1 11.3 0l2.4 2.8 2.3-2.8c3.1-3.1 8.2-3.1 11.3 0 3.1 3.1 3.1 8.2 0 11.4l-12.2 12.8z"></path>
                                 </svg>
-                                <span>{this.props.likes}</span>
+                                <span>{isLiked ? this.props.likes + 1 : this.props.likes}</span>
                             </a>
                         </div>
                     </div>

@@ -7,6 +7,7 @@ import Test from './../components/Test/Test';
 export default (
 <Switch>
     <Route exact path="/" component={Landing} />
-     <Route path="/new" component={LandingNew} /> 
+    <Route path="/new" component={LandingNew} />
+    <Route path="/testing" component={Test} />
 </Switch>
 )
