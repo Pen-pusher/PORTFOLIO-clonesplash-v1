@@ -1,8 +1,11 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
+import axios from 'axios';
+
 import TilePhotoCard from './../Cards/TilePhotoCard';
- 
+import {addNewPhotos, addTrendingPhotos} from './../../redux/mainReducer';
+import {clientID} from './../../trip/explashID'; 
 
 class LandingRender extends Component {
     constructor(props) {
@@ -11,9 +14,9 @@ class LandingRender extends Component {
             windowWidth: 3,
             activeToggle:'Trending',
             activeLayout:'Tile',
-            photoArrays: [[],[],[]]
+            photoArrays: [[],[],[]],
+            pages: 1
         }
-
 
         this.trackDimensions = this.trackDimensions.bind(this);
         this.parseData = this.parseData.bind(this);
@@ -40,7 +43,18 @@ class LandingRender extends Component {
     }
 
     componentDidMount() {
-        console.log(window.location.href)
+        // if(this.props.view === 'Trending') {
+        //     let nextPage = this.state.pages
+        //     this.props.addTrendingPhotos(nextPage)
+        //     nextPage++
+        //     this.setState({pages: nextPage})
+        // }
+        // if(this.props.view === 'New') {
+        //     let nextPage = this.state.pages
+        //     this.props.addNewPhotos(nextPage)
+        //     nextPage++
+        //     this.setState({pages: nextPage})
+        // }       
         this.setState({activeToggle:this.props.view})
         window.addEventListener("load", this.trackDimensions)
         window.addEventListener("resize", this.trackDimensions)
@@ -51,48 +65,59 @@ class LandingRender extends Component {
         window.removeEventListener("load", this.trackDimensions)
     }
 
+    componentWillReceiveProps(nextProps) {
+        let content = this.state.activeToggle;
+        let num = this.state.windowWidth;
+        this.parseData(nextProps.dummyData[content], num)
+    }
+
     parseData(arr, count) {
-        let finalArray = [[],[],[]]
-        if (count === 3) {
-            let i1 = 0;
-            let i2 = 1;
-            let i3 = 2;
-            for (let n=0; n < arr.length / 3; n++) {
-            finalArray[0].push(arr[i1]);
-            i1+=3;
+        if (arr.length) {
+            let finalArray = [[],[],[]]
+            if (count === 3) {
+                let i1 = 0;
+                let i2 = 1;
+                let i3 = 2;
+                for (let n=0; n < arr.length / 3; n++) {
+                finalArray[0].push(arr[i1]);
+                i1+=3;
+                }
+                for (let n=0; n < arr.length / 3; n++) {
+                finalArray[1].push(arr[i2]);
+                i2+=3;
+                }
+                for (let n=0; n < arr.length / 3; n++) {
+                finalArray[2].push(arr[i3]);
+                i3+=3;
+                }
             }
-            for (let n=0; n < arr.length / 3; n++) {
-            finalArray[1].push(arr[i2]);
-            i2+=3;
+            else if (count === 2) {
+                let i1 = 0;
+                let i2 = 1;
+                for (let n=0; n < arr.length / 2; n++) {
+                finalArray[0].push(arr[i1]);
+                i1+=2;
+                }
+                for (let n=0; n < arr.length / 2; n++) {
+                finalArray[1].push(arr[i2]);
+                i2+=2;
+                }
             }
-            for (let n=0; n < arr.length / 3; n++) {
-            finalArray[2].push(arr[i3]);
-            i3+=3;
+            else {
+                finalArray[0] = arr;
             }
+            this.setState({
+                photoArrays: finalArray
+            })
         }
-        else if (count === 2) {
-            let i1 = 0;
-            let i2 = 1;
-            for (let n=0; n < arr.length / 2; n++) {
-            finalArray[0].push(arr[i1]);
-            i1+=2;
-            }
-            for (let n=0; n < arr.length / 2; n++) {
-            finalArray[1].push(arr[i2]);
-            i2+=2;
-            }
-        }
-        else {
-            finalArray[0] = arr;
-        }
-        this.setState({
-            photoArrays: finalArray
-        })
     }
 
 
 
+
     render() {
+        console.log('pages: ', this.state.pages)
+        
 
         const renderListOne = this.state.photoArrays[0].map(item => {
             return <TilePhotoCard 
@@ -151,18 +176,21 @@ class LandingRender extends Component {
                 <nav className="landing-render-nav">
                     <span className="landing-render-content-selectors">
                         <div className="lrcs-div">
-                            <a className="landing-render-content-anchor lrca-trending"
-                                href="/"
-                                style={this.state.activeToggle === 'Trending' ? activeAnchor : null}
-                                >
-                                Trending
-                            </a>
-                            <a className="landing-render-content-anchor lrca-new"
-                                href="/new"
-                                style={this.state.activeToggle === 'New' ? activeAnchor : null}
-                                >
-                                New
-                            </a>
+                            <Link className="landing-render-content-anchor" to="/">
+                                <a className="landing-render-content-anchor lrca-trending"
+                                    href="/"
+                                    style={this.state.activeToggle === 'Trending' ? activeAnchor : null}
+                                    >
+                                    Trending
+                                </a>
+                            </Link>
+                            <Link className="landing-render-content-anchor" to="/new">
+                                <a className="landing-render-content-anchor lrca-new"
+                                    style={this.state.activeToggle === 'New' ? activeAnchor : null}
+                                    >
+                                    New
+                                </a>
+                            </Link>
                         </div>
                     </span>
                     <span className="landing-render-layout-selectors">
@@ -200,4 +228,4 @@ class LandingRender extends Component {
 function mapStateToProps(state) {
     return state;
 }
-export default connect(mapStateToProps)(LandingRender);
+export default connect(mapStateToProps, {addNewPhotos, addTrendingPhotos})(LandingRender);

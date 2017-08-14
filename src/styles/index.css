@@ -215,6 +215,7 @@ body {
   max-width:1200px;
   height:264px;
   padding-top:120px;
+  padding-left:24px;
   margin-right:auto;
   margin-left:auto;
 }
@@ -261,7 +262,8 @@ body {
 }
 
 .landing-render-wrapper {
-  max-width:1224px;
+  max-width:1200px;
+  min-height:100vh;
   margin-right:auto;
   margin-left:auto;  
 }
@@ -353,7 +355,7 @@ body {
 /*------------------------TILE CARD---------------------*/
 
 .tile-card-wrapper {
-  margin-bottom:24px;
+  margin-bottom:20px;
   position:relative;
   display:block;
 }

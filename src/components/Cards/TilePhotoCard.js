@@ -18,6 +18,7 @@ class TilePhotoCard extends Component {
 
     componentDidMount() {
         this.props.liked ? this.setState({isLiked:true}) : null;
+        console.log('whatever')
     }
 
 
@@ -49,7 +50,6 @@ class TilePhotoCard extends Component {
     render() {
 
 
-        console.log(this.state.mouseOver)
         const classHidden = {
             "display": "none"
         }

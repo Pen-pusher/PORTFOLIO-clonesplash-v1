@@ -5,13 +5,13 @@ import {connect} from 'react-redux';
 
 
 const runGet = () => {
-    console.log(this.props)
-    addNewPhotos(1)
+    // this.props.addNewPhotos()
 }
 
 
-const Test = () => {
-
+const Test = (props) => {
+    // props.addNewPhotos(3)
+    console.log(props)
     return(
         <main>
             <br />
