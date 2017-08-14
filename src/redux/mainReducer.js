@@ -1,5 +1,10 @@
+import {newPhotos} from './un-data-new'
+
 const initialState = {
-    dummyData: {}
+    dummyData: newPhotos,
+    currentUser: {},
+    sessionLikes: [],
+
 }
 
 

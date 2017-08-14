@@ -1,11 +1,14 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
+import {activeAnchor} from './../../styles/JSX-styles';
 
 
 class Header extends Component {
     constructor(props) {
         super(props)
-
+        this.state = {
+            activeToggle:'Home'
+        }
 
     }
 
@@ -39,7 +42,7 @@ class Header extends Component {
                 <div className="header-menu-wrapper">
                     <ul className="header-menu-list-wrapper">
                         <li className="header-menu-list-item">
-                            <a className="header-menu-list-anchor" href="#" style={activeLinkStyle}>
+                            <a className="header-menu-list-anchor" href="#" style={this.state.activeToggle === 'Home' ? activeAnchor : null}>
                                 Home
                             </a>
                         </li>
