@@ -10,8 +10,7 @@ import {addNewPhotos,
         addTrendingPhotos,
         layoutTile,
         layoutList,
-        setViewWidth,
-        reRender} from './../../redux/mainReducer';
+        setViewWidth,} from './../../redux/mainReducer';
 import {clientID} from './../../trip/explashID'; 
 
 class LandingRender extends Component {
@@ -352,4 +351,4 @@ class LandingRender extends Component {
 function mapStateToProps(state) {
     return state;
 }
-export default connect(mapStateToProps, {addNewPhotos, addTrendingPhotos, layoutTile, layoutList, setViewWidth, reRender})(LandingRender);
+export default connect(mapStateToProps, {addNewPhotos, addTrendingPhotos, layoutTile, layoutList, setViewWidth})(LandingRender);

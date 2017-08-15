@@ -1,20 +1,43 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
+import {connect} from 'react-redux';
+import {getCurrentUser} from './../../redux/mainReducer';
+import axios from 'axios';
 
 
 class Header extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            activeToggle:'Home'
+            activeToggle:'Home',
+            userSession: false
         }
 
     }
 
+    componentDidMount() {
+        this.props.getCurrentUser()
+    }
+
+    componentWillReceiveProps(nextProps) {
+        console.log('next props: ', nextProps)
+        if (nextProps.currentUser.authid) {
+            this.setState({
+                userSession: true
+            })
+        }
+    }
+
     render() {
+        console.log('header user: ', this.state.userSession)
+        console.log('current user: ', this.props.currentUser)
 
         const activeAnchor = {
             "color":"#111111"
+        }
+
+        const classHidden = {
+            "display":"none"
         }
 
         return(
@@ -51,6 +74,14 @@ class Header extends Component {
                             </a>
                         </li>
                     </ul>
+                    <div className="header-mobile-login" style={this.state.userSession ? classHidden : null}>
+                        <a className="hm-login-anchor" href="http://localhost:3005/auth">
+                            Login
+                        </a>
+                        <a className="hm-join-anchor" href="http://localhost:3005/auth">
+                            Join
+                        </a>                        
+                    </div>
                 </nav>
                 <nav className="header-wrapper">
                     <div className="header-left-search">
@@ -84,7 +115,7 @@ class Header extends Component {
                                     Collections
                                 </a>
                             </li>
-                            <li className="header-menu-list-item">
+                            <li className="header-menu-list-item" style={this.state.userSession ? classHidden : null}>
                                 <a className="header-menu-list-anchor" href="#">
                                     About
                                 </a>
@@ -98,16 +129,35 @@ class Header extends Component {
                             </li>
                         </ul>
                     </div>
-                    <div className="header-login-wrapper">
+                    <div className="header-login-wrapper" style={this.state.userSession ? classHidden : null}>
                         <div>
-                            <a className="header-login-anchor" href="#">
+                            <a className="header-login-anchor" href="http://localhost:3005/auth">
                                 <div className="header-login-left-divider"></div>
                                 Login
                             </a>
-                            <a className="header-signup-anchor" href="#">
+                            <a className="header-signup-anchor" href="http://localhost:3005/auth">
                                 Join free
                             </a>
                         </div>
+                    </div>
+                    <div className="header-user-wrapper" style={this.state.userSession ? null : classHidden}>
+                        <div className="header-submit-photo">
+                            <a href="#" className="header-submit-photo-anchor">
+                                Submit a photo
+                            </a>
+                        </div>
+                        <a href="#">
+                            <div className="header-notifications">
+                                <svg version="1.1" viewBox="0 0 32 32" width="20" height="20" aria-hidden="false">
+                                    <path d="M18.9 30.6c-7.4 2.6-14.2 1.4-15.7-2.8-.5-1.5-.2-3.2.8-4.9.5-.8.5-2.1.2-3l-1.4-3.9c-.9-2.6-.7-5.2.3-7.5.7-1.7 2-3.1 3.5-4.1l-.4-1c-.4-1.1.2-2.2 1.3-2.6l1.9-.7c1.1-.4 2.2.2 2.6 1.3l.4 1c2-.2 4.1.3 5.9 1.4 1.9 1.2 3.5 3.1 4.3 5.4l1.4 3.9c.3.8 1.2 1.9 2 2.2 1.8.7 3 1.8 3.6 3.4 1.4 4.2-3.2 9.3-10.7 11.9zm7.3-10.8c-.6-1.7-5.2-2.8-11.3-.7-6.1 2.1-9 5.8-8.4 7.5.6 1.7 5.2 2.8 11.3.7 6.1-2.1 9-5.8 8.4-7.5zm-7.2.8l.1.8c0 1.9-1.1 3.6-2.7 4.4-.6.3-1.3.6-2.1.6h-.1c-1.6 0-2.9-.8-3.9-1.9-.1-.2-.1-.5.1-.6 1.1-.9 2.8-2 5.3-2.8 1-.3 2-.6 2.9-.8.1-.1.3.1.4.3z"></path>
+                                </svg>
+                            </div>
+                        </a>
+                        <a href="#">
+                            <div className="header-profile-pic">
+                                <img src={this.props.currentUser.profilepic} />
+                            </div>
+                        </a>
                     </div>
                 </nav>
             </main>
@@ -115,4 +165,8 @@ class Header extends Component {
     }
 }
 
-export default Header;
+function mapStateToProps(state) {
+    return state;
+}
+
+export default connect(mapStateToProps, {getCurrentUser})(Header);

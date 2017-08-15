@@ -19,8 +19,7 @@ const initialState = {
     photoLayout: 'Tile',
     windowWidth: 3,
     currentUser: {},
-    sessionLikes: [],
-    renderTrigger: 1
+    sessionLikes: []
 }
 
 const GET_NEW_PHOTOS = 'GET_NEW_PHOTOS';
@@ -31,16 +30,16 @@ const SET_LAYOUT_LIST = 'SET_LAYOUT_LIST';
 
 const SET_VIEW_WIDTH = 'SET_VIEW_WIDTH';
 
-const RE_RENDER = 'RE_RENDER';
+const GET_USER = 'GET_USER';
 
 
 
-//---------------------------RERENDER
+//---------------------------USER
 
-export function reRender() {
+export function getCurrentUser() {
     return {
-        type: RE_RENDER,
-        payload: 1
+        type: GET_USER,
+        payload: axios.get("/api/user")
     }
 }
 
@@ -147,13 +146,16 @@ export default function reducer(state=initialState, action) {
                 state,
                 {photoLayout: action.payload}
             );
-        case RE_RENDER:
-            console.log('rerendering')
+        case 'GET_USER_PENDING':
+            console.log('get user pending')
+            return state;
+        case 'GET_USER_FULFILLED':
+            console.log('current user request: ', action.payload)
             return Object.assign(
                 {},
                 state,
-                {renderTrigger: action.payload}
-            )
+                {currentUser: action.payload.data}
+            );
         default:
             return state;
     }
