@@ -40,11 +40,15 @@ class Header extends Component {
             "display":"none"
         }
 
+        const mobileUser = {
+            "width":"20%"
+        }
+
         return(
             <main className="header">
                 <nav className="header-wrapper-mobile">
                     <ul className="header-mobile-navlist">
-                        <li className="header-mobile-home">
+                        <li className="header-mobile-home" style={this.props.userSession ? mobileUser : null}>
                             <a className="hmh-anchor">
                                 <svg
                                 version="1.1" viewBox="0 0 32 32" width="22" height="22" aria-hidden="false">
@@ -52,29 +56,34 @@ class Header extends Component {
                                 </svg>
                             </a>
                         </li>
-                        <li className="header-mobile-new">
+                        <li className="header-mobile-new" style={this.props.userSession ? mobileUser : null}>
                             <a className="hmn-anchor">
                                 <svg version="1.1" viewBox="0 0 32 32" width="22" height="22" aria-hidden="false">
                                     <path d="M30 0h-28c-1.1 0-2 .9-2 2v28c0 1.1.9 2 2 2h28c1.1 0 2-.9 2-2v-28c0-1.1-.9-2-2-2zm-2 19.2l-5.3-7.3c-.4-.4-1-.4-1.4 0l-7.3 9.3-3.3-5.3c-.4-.4-1-.4-1.4 0l-5.3 7.3v-19.2h24v15.2z"></path>
                                 </svg>
                             </a>
                         </li>
-                        <li className="header-mobile-collections">
+                        <li className="header-mobile-collections" style={this.props.userSession ? mobileUser : null}>
                             <a className="hmc-anchor">
                                 <svg version="1.1" viewBox="0 0 32 32" width="22" height="22" aria-hidden="false">
                                     <path d="M29 6h-26c-.6 0-1 .4-1 1v2c0 .6.4 1 1 1h26c.6 0 1-.4 1-1v-2c0-.6-.4-1-1-1zm-2-6h-22c-.6 0-1 .4-1 1v2c0 .6.4 1 1 1h22c.6 0 1-.4 1-1v-2c0-.6-.4-1-1-1zm-27 13v18c0 .6.4 1 1 1h30c.6 0 1-.4 1-1v-18c0-.6-.4-1-1-1h-30c-.6 0-1 .4-1 1zm22 11h-12c-1.1 0-2-.9-2-2v-5c0-.6.4-1 1-1h2c.6 0 1 .4 1 1v2c0 .6.4 1 1 1h6c.6 0 1-.4 1-1v-2c0-.6.4-1 1-1h2c.6 0 1 .4 1 1v5c0 1.1-.9 2-2 2z"></path>
                                 </svg>
                             </a>
                         </li>
-                        <li className="header-mobile-search">
+                        <li className="header-mobile-search" style={this.props.userSession ? mobileUser : null}>
                             <a className="hms-anchor">
                                 <svg version="1.1" viewBox="0 0 32 32" width="22" height="22" aria-hidden="false">
                                     <path d="M31.4 28.6l-6.2-6.2c1.8-2.3 2.8-5.2 2.8-8.4 0-7.7-6.3-14-14-14s-14 6.3-14 14 6.3 14 14 14c3.1 0 6-1.1 8.4-2.8l6.2 6.2c.4.4.9.6 1.4.6s1-.2 1.4-.6c.8-.8.8-2 0-2.8zm-17.4-4.6c-5.5 0-10-4.5-10-10s4.5-10 10-10 10 4.5 10 10-4.5 10-10 10z"></path>
                                 </svg>
                             </a>
                         </li>
+                        <li className="header-mobile-user" style={this.props.userSession ? mobileUser : classHidden}>
+                            <a className="header-mobile-profilepic">
+                                <img src={this.props.currentUser.profilepic} />
+                            </a>
+                        </li>
                     </ul>
-                    <div className="header-mobile-login" style={this.state.userSession ? classHidden : null}>
+                    <div className="header-mobile-login" style={this.props.userSession ? classHidden : null}>
                         <a className="hm-login-anchor" href="http://localhost:3005/auth">
                             Login
                         </a>
@@ -115,7 +124,7 @@ class Header extends Component {
                                     Collections
                                 </a>
                             </li>
-                            <li className="header-menu-list-item" style={this.state.userSession ? classHidden : null}>
+                            <li className="header-menu-list-item" style={this.props.userSession ? classHidden : null}>
                                 <a className="header-menu-list-anchor" href="#">
                                     About
                                 </a>
@@ -129,7 +138,7 @@ class Header extends Component {
                             </li>
                         </ul>
                     </div>
-                    <div className="header-login-wrapper" style={this.state.userSession ? classHidden : null}>
+                    <div className="header-login-wrapper" style={this.props.userSession ? classHidden : null}>
                         <div>
                             <a className="header-login-anchor" href="http://localhost:3005/auth">
                                 <div className="header-login-left-divider"></div>
@@ -140,7 +149,7 @@ class Header extends Component {
                             </a>
                         </div>
                     </div>
-                    <div className="header-user-wrapper" style={this.state.userSession ? null : classHidden}>
+                    <div className="header-user-wrapper" style={this.props.userSession ? null : classHidden}>
                         <div className="header-submit-photo">
                             <a href="#" className="header-submit-photo-anchor">
                                 Submit a photo

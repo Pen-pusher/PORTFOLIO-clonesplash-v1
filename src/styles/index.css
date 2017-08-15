@@ -59,7 +59,7 @@ body {
   align-items:center; */
   position:fixed; 
   z-index:6;
-  padding-top:18px;
+  padding-top:12px;
 }
 
 .header-mobile-navlist {
@@ -94,6 +94,17 @@ body {
   width:25%;
   text-align:center;
   fill:currentColor;
+}
+
+.header-mobile-user {
+   display:inline-block;
+   text-align:center;
+}
+
+.header-mobile-profilepic img {
+  width:28px;
+  height:28px;
+  border-radius:50%;
 }
 
 .header-mobile-login {

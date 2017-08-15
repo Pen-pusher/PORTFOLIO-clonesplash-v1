@@ -18,6 +18,7 @@ const initialState = {
     Trending: [],
     photoLayout: 'Tile',
     windowWidth: 3,
+    userSession: false,
     currentUser: {},
     sessionLikes: []
 }
@@ -151,11 +152,19 @@ export default function reducer(state=initialState, action) {
             return state;
         case 'GET_USER_FULFILLED':
             console.log('current user request: ', action.payload)
-            return Object.assign(
-                {},
-                state,
-                {currentUser: action.payload.data}
-            );
+            if (!action.payload.data.authid) {
+                return state;
+            }
+            else {
+                return Object.assign(
+                    {},
+                    state,
+                    {
+                        userSession: true,
+                        currentUser: action.payload.data
+                    }
+                )
+            }
         default:
             return state;
     }
