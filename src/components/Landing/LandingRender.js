@@ -6,7 +6,12 @@ import axios from 'axios';
 import TilePhotoCard from './../Cards/TilePhotoCard';
 import ListPhotoCard from './../Cards/ListPhotoCard';
 import MobilePhotoCard from './../Cards/MobilePhotoCard';
-import {addNewPhotos, addTrendingPhotos} from './../../redux/mainReducer';
+import {addNewPhotos,
+        addTrendingPhotos,
+        layoutTile,
+        layoutList,
+        setViewWidth,
+        reRender} from './../../redux/mainReducer';
 import {clientID} from './../../trip/explashID'; 
 
 class LandingRender extends Component {
@@ -15,7 +20,6 @@ class LandingRender extends Component {
         this.state = {
             windowWidth: 3,
             activeToggle:'Trending',
-            activeLayout:'Tile',
             photoArrays: [[],[],[]],
             allPhotos: [],
             pages: 1
@@ -29,35 +33,32 @@ class LandingRender extends Component {
 
     trackDimensions() {
         if (window.innerWidth < 768) {
-            this.setState({
-                windowWidth: 1,
-            })
+            this.props.setViewWidth(1)
         }
         else if (window.innerWidth < 1000) {
-            this.setState({
-                windowWidth: 2
-            })
+            this.props.setViewWidth(2)            
         }
         else {
-            this.setState({
-                windowWidth: 3
-            })
+            this.props.setViewWidth(3)
         }
-        let content = this.state.activeToggle;
-        // this.parseData(this.props.dummyData[content], this.state.windowWidth)
-        this.parseData(this.props[content], this.state.windowWidth)
+        let content = this.props.view;
+        this.parseData(this.props.dummyData[content], this.props.windowWidth)
+        // this.parseData(this.props[content], this.state.windowWidth)
     }
 
     componentDidMount() {
-        if(this.props.view === 'Trending') {
+        let content = this.props.view;
+        if(content === 'Trending') {
             let nextPage = this.state.pages
-            this.props.addTrendingPhotos(nextPage)
+            // this.props.addTrendingPhotos(nextPage)
+            this.parseData(this.props.dummyData[content], this.props.windowWidth)
             nextPage++
             this.setState({pages: nextPage})
         }
-        if(this.props.view === 'New') {
+        if(content === 'New') {
             let nextPage = this.state.pages
-            this.props.addNewPhotos(nextPage)
+            // this.props.addNewPhotos(nextPage)
+            this.parseData(this.props.dummyData[content], this.props.windowWidth)
             nextPage++
             this.setState({pages: nextPage})
         }       
@@ -72,10 +73,10 @@ class LandingRender extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        let content = this.state.activeToggle;
-        let num = this.state.windowWidth;
-        // this.parseData(nextProps.dummyData[content], num)
-        this.parseData(nextProps[content], num)
+        let content = this.props.view;
+        let num = this.props.windowWidth;
+        this.parseData(nextProps.dummyData[content], num)
+        // this.parseData(nextProps[content], num)
     }
 
     parseData(arr, count) {
@@ -110,9 +111,6 @@ class LandingRender extends Component {
                 i2+=2;
                 }
             }
-            else {
-                finalArray[0] = arr;
-            }
             this.setState({
                 photoArrays: finalArray,
                 allPhotos: arr
@@ -121,29 +119,28 @@ class LandingRender extends Component {
     }
 
     handleLayoutTile() {
-        this.setState({activeLayout:'Tile'})
+        this.props.layoutTile()
     }
 
     handleLayoutList() {
-        this.setState({activeLayout:'List'})
+        this.props.layoutList()
     }
 
 
 
 
     render() {
-        console.log('pages: ', this.state.pages)
-        console.log(this.state.allPhotos)
 
         const renderListMobile = this.state.allPhotos.map(item => {
             return <MobilePhotoCard
                 key={item.id}
                 photographer={item.user.name}
+                username={item.user.username}
                 profilePic={item.user.profile_image.small}
                 imgUrl={item.urls.regular}
                 likes={item.likes}
                 liked={item.liked_by_user}
-                download={item.links.download}                
+                download={item.links.download}
                 />
         })
         
@@ -152,6 +149,7 @@ class LandingRender extends Component {
             return <TilePhotoCard 
                 key={item.id}
                 photographer={item.user.name}
+                username={item.user.username}
                 profilePic={item.user.profile_image.small}
                 imgUrl={item.urls.small}
                 likes={item.likes}
@@ -163,11 +161,12 @@ class LandingRender extends Component {
             return <TilePhotoCard 
                 key={item.id}
                 photographer={item.user.name}
+                username={item.user.username}
                 profilePic={item.user.profile_image.small}
-                download={item.links.download}
                 likes={item.likes}
                 liked={item.liked_by_user}
                 imgUrl={item.urls.small}
+                download={item.links.download}
 
                 />
         })
@@ -175,12 +174,12 @@ class LandingRender extends Component {
             return <TilePhotoCard 
                 key={item.id}
                 photographer={item.user.name}
+                username={item.user.username}
                 profilePic={item.user.profile_image.small}
                 imgUrl={item.urls.small}
                 likes={item.likes}
                 liked={item.liked_by_user}
                 download={item.links.download}
-
                 />
         })
 
@@ -188,12 +187,12 @@ class LandingRender extends Component {
             return <ListPhotoCard 
                 key={item.id}
                 photographer={item.user.name}
+                username={item.user.username}
                 profilePic={item.user.profile_image.small}
                 imgUrl={item.urls.full}
                 likes={item.likes}
                 liked={item.liked_by_user}
                 download={item.links.download}
-
                 />            
         })
 
@@ -222,26 +221,26 @@ class LandingRender extends Component {
         }
 
         const setColumnStyleOne = () => {
-            if (this.state.windowWidth === 3) {
+            if (this.props.windowWidth === 3) {
                 return threeColumns;
             }
-            else if(this.state.windowWidth === 2){
+            else if(this.props.windowWidth === 2){
                 return twoColumns;
             }
             return mobileColumn;
         }
         const setColumnStyleTwo = () => {
-            if (this.state.windowWidth === 3) {
+            if (this.props.windowWidth === 3) {
                 return threeColumns;
             }
-            else if(this.state.windowWidth === 2){
+            else if(this.props.windowWidth === 2){
                 return twoColumns;
             }
             return hideDisplay;
         }
 
         const renderTileJSX = () => {
-            if (this.state.windowWidth === 1) {
+            if (this.props.windowWidth === 1) {
                 return (
                 <div className="landing-content-wrapper">                       
                     <div className="lcw-div" 
@@ -256,14 +255,14 @@ class LandingRender extends Component {
                     <div className="lcw-div" 
                         style={setColumnStyleOne()}
                         >
-                        {this.state.windowWidth === 1 ? renderListMobile : renderListOne}
+                        {this.props.windowWidth === 1 ? renderListMobile : renderListOne}
                     </div>
                     <div className="lcw-div" 
                         style={setColumnStyleTwo()} 
                         >
                         {renderListTwo}
                     </div>                    
-                    <div className="lcw-div" style={threeColumns} style={this.state.windowWidth < 3 ? hideDisplay : null}>
+                    <div className="lcw-div" style={threeColumns} style={this.props.windowWidth < 3 ? hideDisplay : null}>
                         {renderListThree}
                     </div>
                 </div>
@@ -276,7 +275,7 @@ class LandingRender extends Component {
                     <div className="lcw-div" 
                         style={tileColumn}
                         >
-                        {this.state.windowWidth === 1 ? renderListMobile : renderListAll}
+                        {this.props.windowWidth === 1 ? renderListMobile : renderListAll}
                     </div>
                 </div>
             )
@@ -308,7 +307,7 @@ class LandingRender extends Component {
                         <div className="lrls-div">
                             <button 
                                 className="lrls-button"
-                                style={this.state.activeLayout === 'List' ? activeAnchor: null}
+                                style={this.props.photoLayout === 'List' ? activeAnchor : null}
                                 onClick={this.handleLayoutList}>
                                 <svg version="1.1" viewBox="0 0 32 32" width="18" height="18" aria-hidden="false">
                                     <path d="M30 14c1.1 0 2-.9 2-2v-10c0-1.1-.9-2-2-2h-28c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2m0 18c-1.1 0-2-.9-2-2v-10c0-1.1.9-2 2-2h28c1.1 0 2 .9 2 2v10c0 1.1-.9 2-2 2"></path>
@@ -316,16 +315,16 @@ class LandingRender extends Component {
                             </button>
                             <button
                                 className="lrls-button"
-                                style={this.state.activeLayout === 'Tile' ? activeAnchor: null}                                
+                                style={this.props.photoLayout === 'Tile' ? activeAnchor : null}
                                 onClick={this.handleLayoutTile}>
-                                <svg version="1.1" viewBox="0 0 32 32" width="18" height="18" aria-hidden="false" style={this.state.activeLayout === 'Tile' ? activeAnchor : null}>
+                                <svg version="1.1" viewBox="0 0 32 32" width="18" height="18" aria-hidden="false">
                                     <path d="M0 2v10c0 1.106 0.896 2 2 2h10c1.104 0 2-0.894 2-2v-10c0-1.106-0.896-2-2-2h-10c-1.104 0-2 0.894-2 2zM2 18c-1.104 0-2 0.894-2 2v10c0 1.106 0.896 2 2 2h10c1.104 0 2-0.894 2-2v-10c0-1.106-0.896-2-2-2h-10zM20 18c-1.106 0-2 0.894-2 2v10c0 1.106 0.894 2 2 2h10c1.106 0 2-0.894 2-2v-10c0-1.106-0.894-2-2-2h-10zM20 0c-1.106 0-2 0.894-2 2v10c0 1.106 0.894 2 2 2h10c1.106 0 2-0.894 2-2v-10c0-1.106-0.894-2-2-2h-10z"></path>
                                 </svg>
                             </button>
                         </div>
                     </span>
                 </nav>
-                {this.state.activeLayout === 'Tile' ?
+                {this.props.photoLayout === 'Tile' ?
                     renderTileJSX() :
                     renderListJSX()
                 }
@@ -353,4 +352,4 @@ class LandingRender extends Component {
 function mapStateToProps(state) {
     return state;
 }
-export default connect(mapStateToProps, {addNewPhotos, addTrendingPhotos})(LandingRender);
+export default connect(mapStateToProps, {addNewPhotos, addTrendingPhotos, layoutTile, layoutList, setViewWidth, reRender})(LandingRender);

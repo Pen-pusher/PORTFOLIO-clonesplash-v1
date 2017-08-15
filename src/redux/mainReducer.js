@@ -16,18 +16,83 @@ const initialState = {
     },
     New: [],
     Trending: [],
+    photoLayout: 'Tile',
+    windowWidth: 3,
     currentUser: {},
     sessionLikes: [],
+    renderTrigger: 1
 }
 
 const GET_NEW_PHOTOS = 'GET_NEW_PHOTOS';
 const GET_TRENDING_PHOTOS = 'GET_TRENDING_PHOTOS';
 
+const SET_LAYOUT_TILE = 'SET_LAYOUT_TILE';
+const SET_LAYOUT_LIST = 'SET_LAYOUT_LIST';
+
+const SET_VIEW_WIDTH = 'SET_VIEW_WIDTH';
+
+const RE_RENDER = 'RE_RENDER';
+
+
+
+//---------------------------RERENDER
+
+export function reRender() {
+    return {
+        type: RE_RENDER,
+        payload: 1
+    }
+}
+
+
+
+//----------------------------LAYOUT
+
+export function layoutTile() {
+    return {
+        type: SET_LAYOUT_TILE,
+        payload: 'Tile'
+    }
+}
+
+export function layoutList() {
+    return {
+        type: SET_LAYOUT_LIST,
+        payload: 'List'
+    }
+}
+
+
+
+
+
+
+
+
+//---------------------------WINDOW WIDTH
+
+export function setViewWidth(num) {
+    return {
+        type: SET_VIEW_WIDTH,
+        payload: num
+    }
+}
+
+
+
+
+
+
+
+
+
+
+//----------------------------API ACTIONS
 
 export function addTrendingPhotos(page) {
     return {
         type: GET_TRENDING_PHOTOS,
-        payload: axios.get(`https://api.unsplash.com/photos/?page=${page}&per_page=30&order_by=popular&client_id=${clientID}`)
+        payload: axios.get(`https://api.unsplash.com/photos/?page=${page}&order_by=trending&per_page=30&client_id=${clientID}`)
     }
 }
 
@@ -38,8 +103,12 @@ export function addNewPhotos(page) {
     }
 }
 
+
+
+
+
+
 export default function reducer(state=initialState, action) {
-        console.log(action.type);
     switch (action.type) {
         case 'GET_TRENDING_PHOTOS_PENDING':
             return state;
@@ -60,6 +129,31 @@ export default function reducer(state=initialState, action) {
                 state,
                 {New: [...state.New, ...action.payload.data]}
             );
+        case SET_VIEW_WIDTH:
+            return Object.assign(
+                {},
+                state,
+                {windowWidth: action.payload}
+            )
+        case SET_LAYOUT_LIST:
+            return Object.assign(
+                {},
+                state,
+                {photoLayout: action.payload}
+            );
+        case SET_LAYOUT_TILE:
+            return Object.assign(
+                {},
+                state,
+                {photoLayout: action.payload}
+            );
+        case RE_RENDER:
+            console.log('rerendering')
+            return Object.assign(
+                {},
+                state,
+                {renderTrigger: action.payload}
+            )
         default:
             return state;
     }

@@ -25,6 +25,7 @@ const ListPhotoCard = (props) => {
                 <div className="lc-footer-left">
                     <div className="lc-likes-div">
                         <a className="lc-likes-anchor"
+                            title="Like photo"
                             style={isLiked ? classLiked : null}
                             >
                             <svg version="1.1" viewBox="0 0 32 32" width="16" height="16" aria-hidden="false">
@@ -34,7 +35,8 @@ const ListPhotoCard = (props) => {
                         </a>
                     </div>
                     <div className="lc-collections-div">
-                        <a href="#" className="lc-collections-anchor">
+                        <a className="lc-collections-anchor"
+                            title="Add to collections">
                             <svg version="1.1" viewBox="0 0 32 32" width="16" height="16" aria-hidden="false">
                                 <path d="M14 3h4v26h-4zM29 14v4h-26v-4z"></path>
                             </svg>
@@ -56,10 +58,11 @@ const ListPhotoCard = (props) => {
                 </div>
                 <div className="lc-footer-right">
                     <div className="lc-download-div">
-                        <a title="Download photo" href={props.download} className="lc-download-anchor">
-                            <svg className="dl-arrow-svg" version="1.1" viewBox="0 0 32 32" width="18" height="18" aria-hidden="false">
-                                <path d="M25.8 15.5l-7.8 7.2v-20.7h-4v20.7l-7.8-7.2-2.7 3 12.5 11.4 12.5-11.4z"></path>
-                            </svg>
+                        <a className="lc-download-anchor"
+                            title="Download photo"
+                            href={props.download}
+                            download>
+                            <span>Download</span>
                         </a>
                     </div>
                 </div>

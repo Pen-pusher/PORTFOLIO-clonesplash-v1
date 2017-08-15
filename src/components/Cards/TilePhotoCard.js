@@ -18,7 +18,6 @@ class TilePhotoCard extends Component {
 
     componentDidMount() {
         this.props.liked ? this.setState({isLiked:true}) : null;
-        console.log('whatever')
     }
 
 
@@ -74,7 +73,7 @@ class TilePhotoCard extends Component {
                         <img className="tile-card-img" src={this.props.imgUrl}/>
                     <div className="tc-top-wrapper" style={this.state.mouseOver ? null : classHidden}>
                         <div className="tc-collections-div">
-                            <a href="#" className="tc-collections-anchor">
+                            <a title="Add to collections" className="tc-collections-anchor">
                                 <svg version="1.1" viewBox="0 0 32 32" width="16" height="16" aria-hidden="false">
                                     <path d="M14 3h4v26h-4zM29 14v4h-26v-4z"></path>
                                 </svg>
@@ -82,7 +81,7 @@ class TilePhotoCard extends Component {
                             </a>
                         </div>
                         <div className="tc-likes-div">
-                            <a onClick={this.handleLike} className="tc-likes-anchor" style={isLiked ? classLiked : null}>
+                            <a onClick={this.handleLike} title="Like photo" className="tc-likes-anchor" style={isLiked ? classLiked : null}>
                                 <svg version="1.1" viewBox="0 0 32 32" width="16" height="16" aria-hidden="false">
                                     <path d="M17.4 29c-.8.8-2 .8-2.8 0l-12.3-12.8c-3.1-3.1-3.1-8.2 0-11.4 3.1-3.1 8.2-3.1 11.3 0l2.4 2.8 2.3-2.8c3.1-3.1 8.2-3.1 11.3 0 3.1 3.1 3.1 8.2 0 11.4l-12.2 12.8z"></path>
                                 </svg>
@@ -92,19 +91,19 @@ class TilePhotoCard extends Component {
                     </div>
                     <div className="tc-bottom-wrapper">
                         <div className="tc-user-div" style={this.state.mouseOver ? null : classHidden}>
-                            <a href="#">
+                            <a href={`/user/@${this.props.username}`}>
                                      <div className="tc-profile-pic">
                                         <img src={this.props.profilePic} />
                                     </div> 
                             </a>
-                            <a href="#">
+                            <a href={`/user/@${this.props.username}`}>
                                 <span>
                                         {this.props.photographer}
                                 </span>
                             </a>
                         </div>
                         <div className="tc-download-div">
-                            <a title="Download photo" href={this.props.download} className="tc-download-anchor">
+                            <a title="Download photo" href={this.props.download} className="tc-download-anchor" download>
                                 <svg className="dl-arrow-svg" version="1.1" viewBox="0 0 32 32" width="18" height="18" aria-hidden="false">
                                     <path d="M25.8 15.5l-7.8 7.2v-20.7h-4v20.7l-7.8-7.2-2.7 3 12.5 11.4 12.5-11.4z"></path>
                                 </svg>
