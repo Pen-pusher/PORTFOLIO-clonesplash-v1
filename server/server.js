@@ -95,7 +95,7 @@ passport.deserializeUser((userB, done) => {
 app.get('/auth', passport.authenticate('auth0'));
 
 app.get('/auth/callback',
-    passport.authenticate('auth0', {successRedirect: appURL}),
+    passport.authenticate('auth0', {successRedirect: `${appURL}/account`}),
     (req, res) => {send(req.user)
 });
 
@@ -103,6 +103,8 @@ app.get('/auth/callback',
 
 
 app.get('/api/user', userCtrl.getCurrentUser)
+
+app.get('/api/user/:id')
 
 
 

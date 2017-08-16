@@ -795,10 +795,6 @@ body {
   width:100%;
 }
 
-.list-card-header {
-
-}
-
 .mc-user-div {
   float:left;
   display:flex;
@@ -889,8 +885,7 @@ body {
 }
 
 .mc-collections-div {
-  /* display:inline-block; */
-   float:right; 
+  float:right; 
 }
 
 .mc-collections-anchor {
@@ -928,7 +923,6 @@ body {
   width:24%;
   float:right;
   text-align:right;
-  /* margin-right:12px; */
 }
 
 .mc-download-anchor {
@@ -960,7 +954,7 @@ body {
 
 
 
-/*----------------------TILE CARD-----------------------*/
+/*----------------------LIST CARD-----------------------*/
 
 .list-card-wrapper {
   width:100%;
@@ -1135,4 +1129,111 @@ body {
   /* margin-left:6px; */
   vertical-align:middle;
   padding-bottom:8px;
+}
+
+
+
+
+
+
+
+
+
+
+/*--------------------USER ACCOUNT--------------------*/
+
+.user-account-wrapper {
+  padding-top:124px;
+}
+
+.user-account-content {
+  max-width:1200px;
+  padding-left:12px;
+  padding-right:12px;
+  margin:auto;
+}
+
+.user-account-form {
+  width:75%;
+  /* background: #999999; */
+  margin:auto;
+  font-size:15px;
+}
+
+.user-account-row input {
+  width:calc(100% - 24px);
+  border:1px solid #999999;
+  border-radius:3px;
+  height:38px;
+  padding-left:16px;
+  margin-top:8px;
+  margin-bottom:24px;
+}
+
+.user-account-form h1 {
+  font-size:18px;
+  line-height:30px;
+  margin-bottom:32px;
+}
+
+.user-account-row {
+  box-sizing:border-box;
+}
+
+.user-account-profilepic {
+  width:33.33%;
+  display:inline-block;
+}
+
+.uap-div {
+  width:132px;
+  height:132px;
+  border-radius:50%;
+  margin-left:auto;
+  margin-right:auto;
+  background:lightblue;
+}
+
+.uap-div img {
+  width:132px;
+  height:132px;
+  border-radius:50%;  
+}
+
+.user-account-top-right {
+  width:66.67%;
+  display:inline-block;
+}
+
+.user-account-row p {
+  margin-left:12px;
+  display:inline;
+  color:#999999;
+}
+
+.user-bio {
+  height:156px;
+}
+
+.user-account-update {
+  width:calc(100% - 6px);
+  height:38px;
+  background: #222222;
+  border-radius:3px;
+  text-align:center;
+  color:#FFFFFF;
+  margin-bottom:156px;
+}
+
+.user-account-update:hover {
+  background:#000000;
+}
+
+@media (max-width:768px) {
+  .user-account-profilepic {
+    width:100%
+  }
+  .user-account-top-right {
+    width:100%
+  }
 }

@@ -327,21 +327,6 @@ class LandingRender extends Component {
                     renderTileJSX() :
                     renderListJSX()
                 }
-                {/* <div className="landing-content-wrapper">                       
-                    <div className="lcw-div" 
-                        style={setColumnStyleOne()}
-                        >
-                        {this.state.windowWidth === 1 ? renderListMobile : renderListOne}
-                    </div>
-                    <div className="lcw-div" 
-                        style={setColumnStyleTwo()} 
-                        >
-                        {renderListTwo}
-                    </div>                    
-                    <div className="lcw-div" style={threeColumns} style={this.state.windowWidth < 3 ? hideDisplay : null}>
-                        {renderListThree}
-                    </div>
-                </div> */}
             </main>
         )
     }
