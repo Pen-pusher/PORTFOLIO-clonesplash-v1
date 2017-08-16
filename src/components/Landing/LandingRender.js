@@ -10,7 +10,7 @@ import {addNewPhotos,
         addTrendingPhotos,
         layoutTile,
         layoutList,
-        setViewWidth,} from './../../redux/mainReducer';
+        setViewWidth} from './../../redux/mainReducer';
 import {clientID} from './../../trip/explashID'; 
 
 class LandingRender extends Component {
