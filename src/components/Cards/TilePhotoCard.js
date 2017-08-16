@@ -89,8 +89,8 @@ class TilePhotoCard extends Component {
                             </a>
                         </div>
                     </div>
-                    <div className="tc-bottom-wrapper">
-                        <div className="tc-user-div" style={this.state.mouseOver ? null : classHidden}>
+                    <div className="tc-bottom-wrapper" style={this.state.mouseOver ? null : classHidden}>
+                        <div className="tc-user-div">
                             <a href={`/user/@${this.props.username}`}>
                                      <div className="tc-profile-pic">
                                         <img src={this.props.profilePic} />
