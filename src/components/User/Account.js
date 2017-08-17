@@ -71,8 +71,8 @@ class Account extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if(nextProps.currentUser.username) {
-            window.location.href = '/';
+        if(nextProps.currentUser.username || nextProps.userData.username) {
+            this.props.history.push('/');
         }
     }
 
@@ -92,10 +92,6 @@ class Account extends Component {
                 bio: this.state.bioInput
             }
         )
-        // axios.put(`/api/user/${id}`, body)
-        // .then(user => {
-        //     this.props.updateUser(user.data[0])
-        // })
         this.props.updateUser(body);
     }
     

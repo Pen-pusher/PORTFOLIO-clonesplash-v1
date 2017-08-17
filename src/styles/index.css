@@ -65,7 +65,24 @@ body {
 .header-mobile-navlist {
   list-style-type:none;
   width:100%;
+}
+
+.header-mobile-navlist svg {
   color:#999999;
+  transition:color .2s ease-in-out;
+  cursor:pointer;
+  fill:currentColor;
+}
+
+.header-mobile-navlist svg:hover {
+  color:#222222;
+  transition:color .2s ease-in-out;
+  fill:currentColor;
+}
+
+.header-mobile-link {
+  color:#999999;
+  transition:color .2s ease-in-out;
 }
 
 .header-mobile-home {
@@ -79,7 +96,7 @@ body {
   display:inline-block;
   width:25%;
   text-align:center;
-  fill:currentColor;  
+  fill:currentColor;
 }
 
 .header-mobile-collections {
@@ -1245,4 +1262,10 @@ body {
   .user-account-top-right {
     width:100%
   }
+}
+
+/*--------------------PUBLIC PROFILE--------------------*/
+
+.public-profile-wrapper {
+  background:lightblue;
 }

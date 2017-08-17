@@ -11,7 +11,7 @@ export default (
     <Route exact path="/" component={LandingTrending} />
     <Route path="/new" component={LandingNew} />
     <Route path="/testing" component={Test} />
-    <Route path="/user/:id" comonent={PublicProfile} />
+    <Route path="/user/:id" component={PublicProfile} />
     <Route path="/account" component={Account} />
 </Switch>
 )

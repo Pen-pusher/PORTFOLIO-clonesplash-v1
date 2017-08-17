@@ -23,8 +23,8 @@ app.use(bodyParser.json());
 app.use(cors());
 app.use(session({
     secret:authConfig.sessionSecret,
-    resave:true,
-    saveUninitialized:true
+    resave:false,
+    saveUninitialized:false
 }));
 app.use(passport.initialize());
 app.use(passport.session());
@@ -103,9 +103,9 @@ app.get('/auth/callback',
 
 app.get('/api/user', userCtrl.getCurrentUser);
 
-// app.get('/api/user/account', userCtrl.getSessionUser);
-
 app.put('/api/user/:id', userCtrl.editUser);
+
+app.get('/api/user/:id', userCtrl.getUserById);
 
 
 

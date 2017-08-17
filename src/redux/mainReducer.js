@@ -18,14 +18,19 @@ const initialState = {
     Trending: [],
     photoLayout: 'Tile',
     windowWidth: 3,
-    sessionUser: {},
     userSession: false,
     currentUser: {},
+    userData: {},
+    unsplashUser: {},
     sessionLikes: []
 }
 
 const GET_NEW_PHOTOS = 'GET_NEW_PHOTOS';
+const GET_NEW_PHOTOS_PENDING = 'GET_NEW_PHOTOS_PENDING';
+const GET_NEW_PHOTOS_FULFILLED = 'GET_NEW_PHOTOS_FULFILLED';
 const GET_TRENDING_PHOTOS = 'GET_TRENDING_PHOTOS';
+const GET_TRENDING_PHOTOS_PENDING = 'GET_TRENDING_PHOTOS_PENDING';
+const GET_TRENDING_PHOTOS_FULFILLED = 'GET_TRENDING_PHOTOS_FULFILLED';
 
 const SET_LAYOUT_TILE = 'SET_LAYOUT_TILE';
 const SET_LAYOUT_LIST = 'SET_LAYOUT_LIST';
@@ -33,7 +38,17 @@ const SET_LAYOUT_LIST = 'SET_LAYOUT_LIST';
 const SET_VIEW_WIDTH = 'SET_VIEW_WIDTH';
 
 const GET_USER = 'GET_USER';
+const GET_USER_PENDING = 'GET_USER_PENDING';
+const GET_USER_FULFILLED = 'GET_USER_FULFILLED';
 const UPDATE_USER = 'UPDATE_USER';
+const UPDATE_USER_PENDING = 'UPDATE_USER_PENDING';
+const UPDATE_USER_FULFILLED = 'UPDATE_USER_FULFILLED';
+const GET_USER_DATA = 'GET_USER_DATA';
+const GET_USER_DATA_PENDING = 'GET_USER_DATA_PENDING';
+const GET_USER_DATA_FULFILLED = 'GET_USER_DATA_FULFILLED';
+const GET_UNSPLASH_USER = 'GET_UNSPLASH_USER';
+const GET_UNSPLASH_USER_PENDING = 'GET_UNSPLASH_USER_PENDING';
+const GET_UNSPLASH_USER_FULFILLED = 'GET_UNSPLASH_USER_FULFILLED';
 
 
 
@@ -47,7 +62,6 @@ export function getCurrentUser() {
 }
 
 export function updateUser(body) {
-    console.log('here, update user')
     let id = body.id;
     return {
         type: UPDATE_USER,
@@ -55,12 +69,26 @@ export function updateUser(body) {
     }
 }
 
-// export function updateUser(user) {
-//     return {
-//         type: UPDATE_USER,
-//         payload: user
-//     }
-// }
+export function getUserData(id) {
+    console.log('action: retrieving user data')
+    return {
+        type: GET_USER_DATA,
+        payload: axios.get(`/api/user/${id}`)
+    }
+}
+
+export function getUnsplashUser(username) {
+    console.log('action: retrieving unsplash user')
+    return {
+        type: GET_UNSPLASH_USER,
+        payload: axios.get(`https://api.unsplash.com/users/${username}?client_id=${clientID}`)
+    }
+}
+
+
+
+
+
 
 
 //----------------------------LAYOUT
@@ -125,21 +153,25 @@ export function addNewPhotos(page) {
 
 
 
+
+
+//--------------------------REDUCER-------------
+
 export default function reducer(state=initialState, action) {
     console.log(action.type);
     switch (action.type) {
-        case 'GET_TRENDING_PHOTOS_PENDING':
+        case GET_TRENDING_PHOTOS_PENDING:
             return state;
-        case 'GET_TRENDING_PHOTOS_FULFILLED':
+        case GET_TRENDING_PHOTOS_FULFILLED:
             console.log('"TRENDING" request fulfilled.')
             return Object.assign(
                 {},
                 state,
                 {Trending: [...state.Trending, ...action.payload.data]}
             );            
-        case 'GET_NEW_PHOTOS_PENDING':
+        case GET_NEW_PHOTOS_PENDING:
             return state;
-        case 'GET_NEW_PHOTOS_FULFILLED':
+        case GET_NEW_PHOTOS_FULFILLED:
             console.log('"NEW" request fulfilled.')
             console.log(action.payload.data)
             return Object.assign(
@@ -165,10 +197,10 @@ export default function reducer(state=initialState, action) {
                 state,
                 {photoLayout: action.payload}
             );
-        case 'GET_USER_PENDING':
+        case GET_USER_PENDING:
             console.log('get user pending')
             return state;
-        case 'GET_USER_FULFILLED':
+        case GET_USER_FULFILLED:
             console.log('current user request: ', action.payload)
             if (!action.payload.data.authid) {
                 return state;
@@ -183,20 +215,28 @@ export default function reducer(state=initialState, action) {
                     }
                 )
             };
-        case 'UPDATE_USER_PENDING':
+        case UPDATE_USER_PENDING:
             console.log('update user pending')
             return state;
-        case 'UPDATE_USER_FULFILLED':
-            console.log('fulfilled: ', action.payload.data);
+        case UPDATE_USER_FULFILLED:
+            console.log('update user fulfilled: ', action.payload.data);
             return Object.assign(
                 {},
                 state,
                 {
-                    currentUser: action.payload.data[0]
+                    userData: action.payload.data[0]
                 }
-            )
-        // case UPDATE_USER:
-        //     console.log('reducer: ', action.payload)
+            );
+        case GET_USER_DATA_PENDING:
+            console.log('user data pending')
+            return state;
+        case GET_USER_DATA_FULFILLED:
+            console.log('user data fulfilled:', action.payload);
+        case GET_UNSPLASH_USER_PENDING:
+            console.log('get unsplash user pending')
+            return state;
+        case GET_UNSPLASH_USER_FULFILLED:
+            console.log('unsplash user fulfilled: ', action.payload)
         default:
             return state;
     }

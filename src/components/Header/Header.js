@@ -39,6 +39,10 @@ class Header extends Component {
             "color":"#111111"
         }
 
+        const inactiveAnchor = {
+            "color":"999999"
+        }
+
         const classHidden = {
             "display":"none"
         }
@@ -47,24 +51,29 @@ class Header extends Component {
             "width":"20%"
         }
 
+        console.log(window.location.pathname)
         return(
             <main className="header">
                 <nav className="header-wrapper-mobile">
                     <ul className="header-mobile-navlist">
                         <li className="header-mobile-home" style={this.props.userSession ? mobileUser : null}>
-                            <a className="hmh-anchor">
-                                <svg
-                                version="1.1" viewBox="0 0 32 32" width="22" height="22" aria-hidden="false">
-                                    <path d="M0 17.1c0-1.3.5-2.6 1.4-3.6l13.2-12.9c.8-.8 3.1-.8 3.9 0l12.1 12.9c.9 1 1.4 2.3 1.4 3.6v13c0 1.1-.9 1.9-1.9 1.9h-8c-1.1 0-2-.9-2-2v-6.2c0-.9-.8-1.7-1.7-1.7h-4.6c-.9 0-1.7.8-1.7 1.7v6.2c0 1.2-.9 2.1-2.1 2.1h-8c-1.1-.1-2-1-2-2v-13z"></path>
-                                </svg>
-                            </a>
+                            <Link to="/" >
+                                <a className="hmh-anchor">
+                                    <svg style={window.location.pathname === '/' ? activeAnchor : null}
+                                    version="1.1" viewBox="0 0 32 32" width="22" height="22" aria-hidden="false">
+                                        <path d="M0 17.1c0-1.3.5-2.6 1.4-3.6l13.2-12.9c.8-.8 3.1-.8 3.9 0l12.1 12.9c.9 1 1.4 2.3 1.4 3.6v13c0 1.1-.9 1.9-1.9 1.9h-8c-1.1 0-2-.9-2-2v-6.2c0-.9-.8-1.7-1.7-1.7h-4.6c-.9 0-1.7.8-1.7 1.7v6.2c0 1.2-.9 2.1-2.1 2.1h-8c-1.1-.1-2-1-2-2v-13z"></path>
+                                    </svg>
+                                </a>
+                            </Link>
                         </li>
                         <li className="header-mobile-new" style={this.props.userSession ? mobileUser : null}>
-                            <a className="hmn-anchor">
-                                <svg version="1.1" viewBox="0 0 32 32" width="22" height="22" aria-hidden="false">
-                                    <path d="M30 0h-28c-1.1 0-2 .9-2 2v28c0 1.1.9 2 2 2h28c1.1 0 2-.9 2-2v-28c0-1.1-.9-2-2-2zm-2 19.2l-5.3-7.3c-.4-.4-1-.4-1.4 0l-7.3 9.3-3.3-5.3c-.4-.4-1-.4-1.4 0l-5.3 7.3v-19.2h24v15.2z"></path>
-                                </svg>
-                            </a>
+                            <Link to="/new" >
+                                <a className="hmn-anchor">
+                                    <svg version="1.1" viewBox="0 0 32 32" width="22" height="22" aria-hidden="false">
+                                        <path d="M30 0h-28c-1.1 0-2 .9-2 2v28c0 1.1.9 2 2 2h28c1.1 0 2-.9 2-2v-28c0-1.1-.9-2-2-2zm-2 19.2l-5.3-7.3c-.4-.4-1-.4-1.4 0l-7.3 9.3-3.3-5.3c-.4-.4-1-.4-1.4 0l-5.3 7.3v-19.2h24v15.2z"></path>
+                                    </svg>
+                                </a>
+                            </Link>
                         </li>
                         <li className="header-mobile-collections" style={this.props.userSession ? mobileUser : null}>
                             <a className="hmc-anchor">
@@ -81,9 +90,11 @@ class Header extends Component {
                             </a>
                         </li>
                         <li className="header-mobile-user" style={this.props.userSession ? mobileUser : classHidden}>
-                            <a className="header-mobile-profilepic">
-                                <img src={this.props.currentUser.profilepic} />
-                            </a>
+                            <Link to={`/user/${this.props.currentUser.username}`}>
+                                <a className="header-mobile-profilepic">
+                                    <img src={this.props.currentUser.profilepic} />
+                                </a>
+                            </Link>
                         </li>
                     </ul>
                     <div className="header-mobile-login" style={this.props.userSession ? classHidden : null}>
@@ -98,11 +109,13 @@ class Header extends Component {
                 <nav className="header-wrapper">
                     <div className="header-left-search">
                         <div className="logo-header">
-                            <a href="/">
-                                <svg viewBox="0,0,32,32" width="32" height="32">
-                                    <path d="M20.8 18.1c0 2.7-2.2 4.8-4.8 4.8s-4.8-2.1-4.8-4.8c0-2.7 2.2-4.8 4.8-4.8 2.7.1 4.8 2.2 4.8 4.8zm11.2-7.4v14.9c0 2.3-1.9 4.3-4.3 4.3h-23.4c-2.4 0-4.3-1.9-4.3-4.3v-15c0-2.3 1.9-4.3 4.3-4.3h3.7l.8-2.3c.4-1.1 1.7-2 2.9-2h8.6c1.2 0 2.5.9 2.9 2l.8 2.4h3.7c2.4 0 4.3 1.9 4.3 4.3zm-8.6 7.5c0-4.1-3.3-7.5-7.5-7.5-4.1 0-7.5 3.4-7.5 7.5s3.3 7.5 7.5 7.5c4.2-.1 7.5-3.4 7.5-7.5z"></path>
-                                </svg>
-                            </a>
+                            <Link to="/">
+                                <a>
+                                    <svg viewBox="0,0,32,32" width="32" height="32">
+                                        <path d="M20.8 18.1c0 2.7-2.2 4.8-4.8 4.8s-4.8-2.1-4.8-4.8c0-2.7 2.2-4.8 4.8-4.8 2.7.1 4.8 2.2 4.8 4.8zm11.2-7.4v14.9c0 2.3-1.9 4.3-4.3 4.3h-23.4c-2.4 0-4.3-1.9-4.3-4.3v-15c0-2.3 1.9-4.3 4.3-4.3h3.7l.8-2.3c.4-1.1 1.7-2 2.9-2h8.6c1.2 0 2.5.9 2.9 2l.8 2.4h3.7c2.4 0 4.3 1.9 4.3 4.3zm-8.6 7.5c0-4.1-3.3-7.5-7.5-7.5-4.1 0-7.5 3.4-7.5 7.5s3.3 7.5 7.5 7.5c4.2-.1 7.5-3.4 7.5-7.5z"></path>
+                                    </svg>
+                                </a>
+                            </Link>
                         </div>
                         <div className="search-header-wrapper">
                             <form className="search-header">
@@ -118,9 +131,11 @@ class Header extends Component {
                     <div className="header-menu-wrapper">
                         <ul className="header-menu-list-wrapper">
                             <li className="header-menu-list-item">
-                                <a className="header-menu-list-anchor" href="#" style={this.state.activeToggle === 'Home' ? activeAnchor : null}>
-                                    Home
-                                </a>
+                                <Link to="/" className="header-menu-list-anchor">
+                                    <a className="header-menu-list-anchor" href="#" style={this.state.activeToggle === 'Home' ? activeAnchor : null}>
+                                        Home
+                                    </a>
+                                </Link>
                             </li>
                             <li className="header-menu-list-item">
                                 <a className="header-menu-list-anchor" href="#">
@@ -165,11 +180,13 @@ class Header extends Component {
                                 </svg>
                             </div>
                         </a>
-                        <a href="#">
-                            <div className="header-profile-pic">
-                                <img src={this.props.currentUser.profilepic} />
-                            </div>
-                        </a>
+                        <Link to={`/user/${this.props.username}`}>
+                            <a href="#">
+                                <div className="header-profile-pic">
+                                        <img src={this.props.currentUser.profilepic} />
+                                </div>
+                            </a>
+                        </Link>
                     </div>
                 </nav>
             </main>

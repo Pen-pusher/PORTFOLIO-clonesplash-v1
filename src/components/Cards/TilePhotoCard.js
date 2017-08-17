@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import {Button, Popup} from 'semantic-ui-react';
+// import {Button, Popup} from 'semantic-ui-react';
+import {Link} from 'react-router-dom';
 
 
 class TilePhotoCard extends Component {
@@ -91,16 +92,20 @@ class TilePhotoCard extends Component {
                     </div>
                     <div className="tc-bottom-wrapper" style={this.state.mouseOver ? null : classHidden}>
                         <div className="tc-user-div">
-                            <a href={`/user/@${this.props.username}`}>
+                            <Link to={`/user/${this.props.username}`}>
+                                <a>
                                      <div className="tc-profile-pic">
                                         <img src={this.props.profilePic} />
                                     </div> 
-                            </a>
-                            <a href={`/user/@${this.props.username}`}>
-                                <span>
-                                        {this.props.photographer}
-                                </span>
-                            </a>
+                                </a>
+                            </Link>
+                            <Link to={`/user/${this.props.username}`}>
+                                <a>
+                                    <span>
+                                            {this.props.photographer}
+                                    </span>
+                                </a>
+                            </Link>
                         </div>
                         <div className="tc-download-div">
                             <a title="Download photo" href={this.props.download} className="tc-download-anchor" download>
