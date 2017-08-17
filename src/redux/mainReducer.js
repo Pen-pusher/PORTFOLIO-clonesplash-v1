@@ -18,6 +18,7 @@ const initialState = {
     Trending: [],
     photoLayout: 'Tile',
     windowWidth: 3,
+    sessionUser: {},
     userSession: false,
     currentUser: {},
     sessionLikes: []

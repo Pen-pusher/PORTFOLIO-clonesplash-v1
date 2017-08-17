@@ -1,6 +1,16 @@
 module.exports = {
+    // getCurrentUser:(req, res) => {
+    //     let db = req.app.get('db');
+    //     if(req.user) {
+    //         db.queries.user.getUserByAuthId([req.user.authid])
+    //         .then(user => {
+    //             res.status(200).send(user[0])
+    //         })
+    //         .catch(err => res.send(req.user))
+    //     }
+    //     res.status(205).send('No user')
+    // },
     getCurrentUser:(req, res) => {
-        console.log('querying current user')
         req.user ?
         res.status(200).send(req.user) :
         res.status(205).send('No user on session')

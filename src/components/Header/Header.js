@@ -16,7 +16,10 @@ class Header extends Component {
     }
 
     componentDidMount() {
+        if(!this.props.currentUser.username) {
         this.props.getCurrentUser()
+        }
+        return;
     }
 
     componentWillReceiveProps(nextProps) {

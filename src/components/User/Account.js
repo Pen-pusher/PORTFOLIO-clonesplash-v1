@@ -72,7 +72,6 @@ class Account extends Component {
 
     componentWillReceiveProps(nextProps) {
         if(nextProps.currentUser.username) {
-            this.props.getCurrentUser()
             window.location.href = '/';
         }
     }
