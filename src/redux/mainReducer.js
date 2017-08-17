@@ -32,6 +32,7 @@ const SET_LAYOUT_LIST = 'SET_LAYOUT_LIST';
 const SET_VIEW_WIDTH = 'SET_VIEW_WIDTH';
 
 const GET_USER = 'GET_USER';
+const UPDATE_USER = 'UPDATE_USER';
 
 
 
@@ -44,6 +45,21 @@ export function getCurrentUser() {
     }
 }
 
+export function updateUser(body) {
+    console.log('here, update user')
+    let id = body.id;
+    return {
+        type: UPDATE_USER,
+        payload: axios.put(`/api/user/${id}`, body)
+    }
+}
+
+// export function updateUser(user) {
+//     return {
+//         type: UPDATE_USER,
+//         payload: user
+//     }
+// }
 
 
 //----------------------------LAYOUT
@@ -109,6 +125,7 @@ export function addNewPhotos(page) {
 
 
 export default function reducer(state=initialState, action) {
+    console.log(action.type);
     switch (action.type) {
         case 'GET_TRENDING_PHOTOS_PENDING':
             return state;
@@ -164,7 +181,21 @@ export default function reducer(state=initialState, action) {
                         currentUser: action.payload.data
                     }
                 )
-            }
+            };
+        case 'UPDATE_USER_PENDING':
+            console.log('update user pending')
+            return state;
+        case 'UPDATE_USER_FULFILLED':
+            console.log('fulfilled: ', action.payload.data);
+            return Object.assign(
+                {},
+                state,
+                {
+                    currentUser: action.payload.data[0]
+                }
+            )
+        // case UPDATE_USER:
+        //     console.log('reducer: ', action.payload)
         default:
             return state;
     }

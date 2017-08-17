@@ -25,6 +25,7 @@ class Header extends Component {
                 userSession: true
             })
         }
+        console.log('header will receive')
     }
 
     render() {

@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import axios from 'axios';
-
+import {updateUser, getCurrentUser} from './../../redux/mainReducer';
 
 
 class Account extends Component {
@@ -17,31 +17,137 @@ class Account extends Component {
             websiteInput: '',
             instagramInput: '',
             locationInput: '',
-            bioInput: ''
+            bioInput: '',
+            initialized: false
         }
+
+        this.handleFirstNameInput = this.handleFirstNameInput.bind(this);
+        this.handleLasttNameInput = this.handleLasttNameInput.bind(this);
+        this.handleEmailInput = this.handleEmailInput.bind(this);
+        this.handleUsernameInput = this.handleUsernameInput.bind(this);
+        this.handleWebsiteInput = this.handleWebsiteInput.bind(this);
+        this.handleInstagramInput = this.handleInstagramInput.bind(this);
+        this.handleLocationeInput = this.handleLocationeInput.bind(this);
+        this.handleBioInput = this.handleBioInput.bind(this);
+
+        this.handleUserUpdate = this.handleUserUpdate.bind(this);
     }
 
     componentDidMount() {
-        axios.get('/api/user')
-        .then(res => {
-            if(res.data.name) {
-                let {name, email} = res.data
-                this.setState({
-                    currentUser: res.data,
-                    firstNameInput: name.split(' ')[0],
-                    lastNameInput: name.split(' ')[1],
-                    emailInput: email
-                })
-            }
-            else {
-                return;
-            }
-        })
+        if(!this.state.initialized) {
+            axios.get('/api/user')
+            .then(res => {
+                if(res.data.username) {
+                    let {name, email, username, website, instagram, location, bio} = res.data;
+                    this.setState({
+                        currentUser: res.data,
+                        firstNameInput: name.split(' ')[0],
+                        lastNameInput: name.split(' ')[1],
+                        emailInput: email,
+                        usernameInput: username,
+                        websiteInput: website,
+                        instagramInput: instagram,
+                        locationInput: location,
+                        bioInput: bio,
+                        initialized: true
+                    })
+                }
+                else if(res.data.name) {
+                    let {name, email} = res.data
+                    this.setState({
+                        currentUser: res.data,
+                        firstNameInput: name.split(' ')[0],
+                        lastNameInput: name.split(' ')[1],
+                        emailInput: email,
+                        initialized: true
+                    })
+                }
+                else {
+                    return;
+                }
+            })
+        }
+        return;
     }
 
     componentWillReceiveProps(nextProps) {
+        if(nextProps.currentUser.username) {
+            this.props.getCurrentUser()
+            window.location.href = '/';
+        }
+    }
+
+    handleUserUpdate() {
+        let name = this.state.firstNameInput + ' ' + this.state.lastNameInput;
+        let id = this.state.currentUser.authid;
+        let body = Object.assign(
+            {},
+            {
+                id: id,
+                name: name,
+                email: this.state.emailInput,
+                username: this.state.usernameInput,
+                website: this.state.websiteInput,
+                instagram: this.state.instagramInput,
+                location: this.state.locationInput,
+                bio: this.state.bioInput
+            }
+        )
+        // axios.put(`/api/user/${id}`, body)
+        // .then(user => {
+        //     this.props.updateUser(user.data[0])
+        // })
+        this.props.updateUser(body);
     }
     
+    handleFirstNameInput(e) {
+        this.setState({
+            firstNameInput: e.target.value
+        })
+    }
+
+    handleLasttNameInput(e) {
+        this.setState({
+            lastNameInput: e.target.value
+        })
+    }
+
+    handleEmailInput(e) {
+        this.setState({
+            emailInput: e.target.value
+        })
+    }
+
+    handleUsernameInput(e) {
+        this.setState({
+            usernameInput: e.target.value
+        })
+    }
+
+    handleWebsiteInput(e) {
+        this.setState({
+            websiteInput: e.target.value
+        })
+    }
+
+    handleInstagramInput(e) {
+        this.setState({
+            instagramInput: e.target.value
+        })
+    }
+
+    handleLocationeInput(e) {
+        this.setState({
+            locationInput: e.target.value
+        })
+    }
+
+    handleBioInput(e) {
+        this.setState({
+            bioInput: e.target.value
+        })
+    }
+
     
     render() {
         
@@ -71,28 +177,41 @@ class Account extends Component {
                             <div className="user-account-top-right">
                                 <label for="user-first-name">First name</label>
                                 <input className="user-first-name"
+                                    onChange={this.handleFirstNameInput}
                                     value={this.state.firstNameInput} />
                                 <label for="user-last-name">Last name</label>
-                                <input className="user-last-name" 
+                                <input className="user-last-name"
+                                    onChange={this.handleLasttNameInput}
                                     value={this.state.lastNameInput}/>
                                 <label for="user-email">Email address</label>
-                                <input className="user-email" 
+                                <input className="user-email"
+                                    onChange={this.handleEmailInput}
                                     value={this.state.emailInput}/>                                
                             </div>
                         </div>
                         <div className="user-account-row">
                             <label for="user-username">Username</label><p>(only letters, numbers, and underscores)</p>
-                            <input className="user-username" />
+                            <input className="user-username"
+                                onChange={this.handleUsernameInput}/>
                             <label for="user-website">Personal site/portfolio</label>
-                            <input className="user-website" placeholder="https://"/>
+                            <input className="user-website"
+                                onChange={this.handleWebsiteInput}
+                                placeholder="https://"/>
                             <label for="user-instagram">Instagram</label>
-                            <input className="user-instagram" placeholder="@"/>                                
+                            <input className="user-instagram"
+                                onChange={this.handleInstagramInput}
+                                placeholder="@"/>                                
                             <label for="user-location">Location</label>
-                            <input className="user-location" />
+                            <input className="user-location"
+                                onChange={this.handleLocationeInput} />
                             <label for="user-bio">Bio</label>
-                            <input className="user-bio" style={bioStyle}/>                                                            
+                            <textarea className="user-bio"
+                                rows="4"
+                                maxLength="240"
+                                style={bioStyle}
+                                onChange={this.handleBioInput}/>                                                            
                         </div>
-                        <button className="user-account-update">Update account</button>
+                        <button onClick={this.handleUserUpdate} className="user-account-update">Update account</button>
                     </div>
                 </div>
             </main>
@@ -104,4 +223,4 @@ function mapStateToProps(state) {
     return state;
 }
 
-export default connect(mapStateToProps)(Account);
+export default connect(mapStateToProps, {updateUser, getCurrentUser})(Account);
