@@ -2,7 +2,6 @@ import {newPhotos} from './dummyData/un-data-new';
 import {trendingPhotos} from './dummyData/un-data-trending';
 import {photoData} from './dummyData/un-data-photo';
 import {userData} from './dummyData/un-data-user';
-import {getNewPhotos} from './../services/axiosServices';
 import axios from 'axios';
 import {clientID} from './../trip/explashID';
 
@@ -21,7 +20,7 @@ const initialState = {
     userSession: false,
     currentUser: {},
     userData: {},
-    unsplashUser: {},
+    unsplashUser: {name: null},
     sessionLikes: []
 }
 
@@ -214,7 +213,7 @@ export default function reducer(state=initialState, action) {
                         currentUser: action.payload.data
                     }
                 )
-            };
+            }
         case UPDATE_USER_PENDING:
             console.log('update user pending')
             return state;
@@ -232,11 +231,21 @@ export default function reducer(state=initialState, action) {
             return state;
         case GET_USER_DATA_FULFILLED:
             console.log('user data fulfilled:', action.payload);
+            return Object.assign(
+                {},
+                state,
+                {userData: action.payload.data}
+            )
         case GET_UNSPLASH_USER_PENDING:
             console.log('get unsplash user pending')
             return state;
         case GET_UNSPLASH_USER_FULFILLED:
             console.log('unsplash user fulfilled: ', action.payload)
+            return Object.assign(
+                {},
+                state,
+                {unsplashUser: action.payload.data}
+            )
         default:
             return state;
     }

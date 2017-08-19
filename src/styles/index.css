@@ -80,10 +80,6 @@ body {
   fill:currentColor;
 }
 
-.header-mobile-link {
-  color:#999999;
-  transition:color .2s ease-in-out;
-}
 
 .header-mobile-home {
   display:inline-block;
