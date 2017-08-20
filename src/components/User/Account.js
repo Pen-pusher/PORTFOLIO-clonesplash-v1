@@ -27,7 +27,7 @@ class Account extends Component {
         this.handleUsernameInput = this.handleUsernameInput.bind(this);
         this.handleWebsiteInput = this.handleWebsiteInput.bind(this);
         this.handleInstagramInput = this.handleInstagramInput.bind(this);
-        this.handleLocationeInput = this.handleLocationeInput.bind(this);
+        this.handleLocationInput = this.handleLocationInput.bind(this);
         this.handleBioInput = this.handleBioInput.bind(this);
 
         this.handleUserUpdate = this.handleUserUpdate.bind(this);
@@ -131,7 +131,7 @@ class Account extends Component {
         })
     }
 
-    handleLocationeInput(e) {
+    handleLocationInput(e) {
         this.setState({
             locationInput: e.target.value
         })
@@ -198,12 +198,12 @@ class Account extends Component {
                                 placeholder="@"/>                                
                             <label for="user-location">Location</label>
                             <input className="user-location"
-                                onChange={this.handleLocationeInput} />
+                                onChange={this.handleLocationInput} />
                             <label for="user-bio">Bio</label>
                             <textarea className="user-bio"
+                                style={bioStyle}
                                 rows="4"
                                 maxLength="240"
-                                style={bioStyle}
                                 onChange={this.handleBioInput}/>                                                            
                         </div>
                         <button onClick={this.handleUserUpdate} className="user-account-update">Update account</button>

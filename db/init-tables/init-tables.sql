@@ -10,3 +10,12 @@ CREATE TABLE users (
     website varchar(60),
     instagram varchar(60) UNIQUE
 )
+
+CREATE TABLE photos (
+    id SERIAL PRIMARY KEY,
+    userid int NOT NULL,
+    size int NOT NULL,
+    url varchar UNIQUE NOT NULL,
+    data jsonb
+)
+

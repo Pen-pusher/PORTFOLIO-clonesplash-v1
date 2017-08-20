@@ -261,7 +261,10 @@ class LandingRender extends Component {
                         >
                         {renderListTwo}
                     </div>                    
-                    <div className="lcw-div" style={threeColumns} style={this.props.windowWidth < 3 ? hideDisplay : null}>
+                    <div className="lcw-div"
+                        style={threeColumns}
+                        style={this.props.windowWidth < 3 ? hideDisplay : null}
+                        >
                         {renderListThree}
                     </div>
                 </div>
