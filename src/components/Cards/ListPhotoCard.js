@@ -1,5 +1,5 @@
 import React from 'react';
-
+import {connect} from 'react-redux';
 
 let isLiked = false;
 
@@ -9,7 +9,12 @@ const classLiked = {
     "background":"#F15151"
 }
 
+
+
 const ListPhotoCard = (props) => {
+    isLiked = (props.userLikes.filter(obj => obj.photo === props.id));
+    console.log(isLiked)
+    
     return(
         <main className="list-card-wrapper">
             <div className="list-card-header">
@@ -26,7 +31,7 @@ const ListPhotoCard = (props) => {
                     <div className="lc-likes-div">
                         <a className="lc-likes-anchor"
                             title="Like photo"
-                            style={isLiked ? classLiked : null}
+                            style={isLiked.length ? classLiked : null}
                             >
                             <svg version="1.1" viewBox="0 0 32 32" width="16" height="16" aria-hidden="false">
                                 <path d="M17.4 29c-.8.8-2 .8-2.8 0l-12.3-12.8c-3.1-3.1-3.1-8.2 0-11.4 3.1-3.1 8.2-3.1 11.3 0l2.4 2.8 2.3-2.8c3.1-3.1 8.2-3.1 11.3 0 3.1 3.1 3.1 8.2 0 11.4l-12.2 12.8z"></path>
@@ -71,4 +76,7 @@ const ListPhotoCard = (props) => {
     )    
 }
 
-export default ListPhotoCard;
+function mapStateToProps(state) {
+    return state;
+}
+export default connect(mapStateToProps)(ListPhotoCard);

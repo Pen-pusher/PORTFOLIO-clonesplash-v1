@@ -21,8 +21,11 @@ const initialState = {
     currentUser: {},
     userData: {},
     unsplashUser: {name: null},
+    userLikes: [{photo: "jLwVAUtLOAQ"}, {photo: "IJ25m7fXqtk"}],
     sessionLikes: []
 }
+
+const SET_VIEW_WIDTH = 'SET_VIEW_WIDTH';
 
 const GET_NEW_PHOTOS = 'GET_NEW_PHOTOS';
 const GET_NEW_PHOTOS_PENDING = 'GET_NEW_PHOTOS_PENDING';
@@ -31,10 +34,10 @@ const GET_TRENDING_PHOTOS = 'GET_TRENDING_PHOTOS';
 const GET_TRENDING_PHOTOS_PENDING = 'GET_TRENDING_PHOTOS_PENDING';
 const GET_TRENDING_PHOTOS_FULFILLED = 'GET_TRENDING_PHOTOS_FULFILLED';
 
+const LIKE_PHOTO = 'LIKE_PHOTO';
+
 const SET_LAYOUT_TILE = 'SET_LAYOUT_TILE';
 const SET_LAYOUT_LIST = 'SET_LAYOUT_LIST';
-
-const SET_VIEW_WIDTH = 'SET_VIEW_WIDTH';
 
 const GET_USER = 'GET_USER';
 const GET_USER_PENDING = 'GET_USER_PENDING';
@@ -48,6 +51,17 @@ const GET_USER_DATA_FULFILLED = 'GET_USER_DATA_FULFILLED';
 const GET_UNSPLASH_USER = 'GET_UNSPLASH_USER';
 const GET_UNSPLASH_USER_PENDING = 'GET_UNSPLASH_USER_PENDING';
 const GET_UNSPLASH_USER_FULFILLED = 'GET_UNSPLASH_USER_FULFILLED';
+
+
+
+//---------------------------WINDOW WIDTH
+
+export function setViewWidth(num) {
+    return {
+        type: SET_VIEW_WIDTH,
+        payload: num
+    }
+}
 
 
 
@@ -86,10 +100,17 @@ export function getUnsplashUser(username) {
 
 
 
+//----------------------------ACTIVITY
 
-
-
-
+export function likePhoto(user, photo) {
+    return {
+        type: LIKE_PHOTO,
+        payload: {
+            user,
+            photo
+        }
+    }
+}
 //----------------------------LAYOUT
 
 export function layoutTile() {
@@ -108,29 +129,6 @@ export function layoutList() {
 
 
 
-
-
-
-
-
-//---------------------------WINDOW WIDTH
-
-export function setViewWidth(num) {
-    return {
-        type: SET_VIEW_WIDTH,
-        payload: num
-    }
-}
-
-
-
-
-
-
-
-
-
-
 //----------------------------API ACTIONS
 
 export function addTrendingPhotos(page) {
@@ -146,10 +144,6 @@ export function addNewPhotos(page) {
         payload: axios.get(`https://api.unsplash.com/photos/?page=${page}&per_page=30&client_id=${clientID}`)
     }
 }
-
-
-
-
 
 
 
@@ -178,6 +172,12 @@ export default function reducer(state=initialState, action) {
                 state,
                 {New: [...state.New, ...action.payload.data]}
             );
+        case LIKE_PHOTO:
+            return Object.assign(
+                {},
+                state,
+                {sessionLikes: [...state.sessionLikes, ...action.payload]}
+            )
         case SET_VIEW_WIDTH:
             return Object.assign(
                 {},

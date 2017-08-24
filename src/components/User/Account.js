@@ -72,7 +72,7 @@ class Account extends Component {
 
     componentWillReceiveProps(nextProps) {
         if(nextProps.currentUser.username || nextProps.userData.username) {
-            this.props.history.push('/');
+            // this.props.history.push('/');
         }
     }
 

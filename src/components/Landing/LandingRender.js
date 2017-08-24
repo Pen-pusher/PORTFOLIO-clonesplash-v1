@@ -24,26 +24,11 @@ class LandingRender extends Component {
             pages: 1
         }
 
-        this.trackDimensions = this.trackDimensions.bind(this);
         this.parseData = this.parseData.bind(this);
         this.handleLayoutTile = this.handleLayoutTile.bind(this);
         this.handleLayoutList = this.handleLayoutList.bind(this);
     }
 
-    trackDimensions() {
-        if (window.innerWidth < 768) {
-            this.props.setViewWidth(1)
-        }
-        else if (window.innerWidth < 1000) {
-            this.props.setViewWidth(2)            
-        }
-        else {
-            this.props.setViewWidth(3)
-        }
-        let content = this.props.view;
-        this.parseData(this.props.dummyData[content], this.props.windowWidth)
-        // this.parseData(this.props[content], this.state.windowWidth)
-    }
 
     componentDidMount() {
         let content = this.props.view;
@@ -62,18 +47,11 @@ class LandingRender extends Component {
             this.setState({pages: nextPage})
         }       
         this.setState({activeToggle:this.props.view})
-        window.addEventListener("load", this.trackDimensions)
-        window.addEventListener("resize", this.trackDimensions)
-    }
-
-    componentWillUnmount() {
-        window.removeEventListener("resize", this.trackDimensions)
-        window.removeEventListener("load", this.trackDimensions)
     }
 
     componentWillReceiveProps(nextProps) {
         let content = this.props.view;
-        let num = this.props.windowWidth;
+        let num = nextProps.windowWidth;
         this.parseData(nextProps.dummyData[content], num)
         // this.parseData(nextProps[content], num)
     }
@@ -142,8 +120,6 @@ class LandingRender extends Component {
                 download={item.links.download}
                 />
         })
-        
-
         const renderListOne = this.state.photoArrays[0].map(item => {
             return <TilePhotoCard 
                 key={item.id}
@@ -181,9 +157,9 @@ class LandingRender extends Component {
                 download={item.links.download}
                 />
         })
-
         const renderListAll = this.state.allPhotos.map(item => {
-            return <ListPhotoCard 
+            return <ListPhotoCard
+                id={item.id}
                 key={item.id}
                 photographer={item.user.name}
                 username={item.user.username}

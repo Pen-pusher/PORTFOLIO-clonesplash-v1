@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
-import {getCurrentUser} from './../../redux/mainReducer';
+import {getCurrentUser, setViewWidth} from './../../redux/mainReducer';
 import axios from 'axios';
 
 
@@ -13,9 +13,25 @@ class Header extends Component {
             userSession: false
         }
 
+        this.trackDimensions = this.trackDimensions.bind(this);
     }
 
+    trackDimensions() {
+        if (window.innerWidth < 768) {
+            this.props.setViewWidth(1)
+        }
+        else if (window.innerWidth < 1000) {
+            this.props.setViewWidth(2)            
+        }
+        else {
+            this.props.setViewWidth(3)
+        }
+    }    
+
     componentDidMount() {
+        window.addEventListener("load", this.trackDimensions)
+        window.addEventListener("resize", this.trackDimensions)
+        
         if(!this.props.currentUser.username) {
         this.props.getCurrentUser()
         }
@@ -30,6 +46,12 @@ class Header extends Component {
         }
         console.log('header will receive')
     }
+
+    componentWillUnmount() {
+        window.removeEventListener("resize", this.trackDimensions)
+        window.removeEventListener("load", this.trackDimensions)
+    }
+    
 
     render() {
         console.log('header user: ', this.state.userSession)
@@ -198,4 +220,4 @@ function mapStateToProps(state) {
     return state;
 }
 
-export default connect(mapStateToProps, {getCurrentUser})(Header);
+export default connect(mapStateToProps, {getCurrentUser, setViewWidth})(Header);
