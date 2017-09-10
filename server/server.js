@@ -102,11 +102,8 @@ app.get('/auth/callback',
 //----------------------REACT-APP ENDPOINTS----------------------//
 
 app.get('/api/user', userCtrl.getCurrentUser);
-
 app.put('/api/user/:id', userCtrl.editUser);
-
 app.get('/api/user/:id', userCtrl.getUserById);
-
 
 
 

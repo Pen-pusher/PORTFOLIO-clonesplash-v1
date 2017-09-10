@@ -34,15 +34,15 @@ class LandingRender extends Component {
         let content = this.props.view;
         if(content === 'Trending') {
             let nextPage = this.state.pages
-            // this.props.addTrendingPhotos(nextPage)
-            this.parseData(this.props.dummyData[content], this.props.windowWidth)
+            this.props.addTrendingPhotos(nextPage)
+            this.parseData(this.props[content], this.props.windowWidth)
             nextPage++
             this.setState({pages: nextPage})
         }
         if(content === 'New') {
             let nextPage = this.state.pages
-            // this.props.addNewPhotos(nextPage)
-            this.parseData(this.props.dummyData[content], this.props.windowWidth)
+            this.props.addNewPhotos(nextPage)
+            this.parseData(this.props[content], this.props.windowWidth)
             nextPage++
             this.setState({pages: nextPage})
         }       
@@ -52,8 +52,8 @@ class LandingRender extends Component {
     componentWillReceiveProps(nextProps) {
         let content = this.props.view;
         let num = nextProps.windowWidth;
-        this.parseData(nextProps.dummyData[content], num)
-        // this.parseData(nextProps[content], num)
+        // this.parseData(nextProps.dummyData[content], num)
+        this.parseData(nextProps[content], num)
     }
 
     parseData(arr, count) {

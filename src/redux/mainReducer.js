@@ -156,7 +156,6 @@ export default function reducer(state=initialState, action) {
         case GET_TRENDING_PHOTOS_PENDING:
             return state;
         case GET_TRENDING_PHOTOS_FULFILLED:
-            console.log('"TRENDING" request fulfilled.')
             return Object.assign(
                 {},
                 state,
@@ -165,8 +164,6 @@ export default function reducer(state=initialState, action) {
         case GET_NEW_PHOTOS_PENDING:
             return state;
         case GET_NEW_PHOTOS_FULFILLED:
-            console.log('"NEW" request fulfilled.')
-            console.log(action.payload.data)
             return Object.assign(
                 {},
                 state,
@@ -197,10 +194,8 @@ export default function reducer(state=initialState, action) {
                 {photoLayout: action.payload}
             );
         case GET_USER_PENDING:
-            console.log('get user pending')
             return state;
         case GET_USER_FULFILLED:
-            console.log('current user request: ', action.payload)
             if (!action.payload.data.authid) {
                 return state;
             }
@@ -215,10 +210,8 @@ export default function reducer(state=initialState, action) {
                 )
             }
         case UPDATE_USER_PENDING:
-            console.log('update user pending')
             return state;
         case UPDATE_USER_FULFILLED:
-            console.log('update user fulfilled: ', action.payload.data);
             return Object.assign(
                 {},
                 state,
@@ -227,20 +220,16 @@ export default function reducer(state=initialState, action) {
                 }
             );
         case GET_USER_DATA_PENDING:
-            console.log('user data pending')
             return state;
         case GET_USER_DATA_FULFILLED:
-            console.log('user data fulfilled:', action.payload);
             return Object.assign(
                 {},
                 state,
                 {userData: action.payload.data}
             )
         case GET_UNSPLASH_USER_PENDING:
-            console.log('get unsplash user pending')
             return state;
         case GET_UNSPLASH_USER_FULFILLED:
-            console.log('unsplash user fulfilled: ', action.payload)
             return Object.assign(
                 {},
                 state,
