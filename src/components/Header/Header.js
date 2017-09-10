@@ -53,8 +53,6 @@ class Header extends Component {
     
 
     render() {
-        console.log('header user: ', this.state.userSession)
-        console.log('redux user: ', this.props.currentUser)
 
         const activeAnchor = {
             "color":"#111111"

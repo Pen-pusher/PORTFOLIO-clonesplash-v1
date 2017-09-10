@@ -83,7 +83,6 @@ export function updateUser(body) {
 }
 
 export function getUserData(id) {
-    console.log('action: retrieving user data')
     return {
         type: GET_USER_DATA,
         payload: axios.get(`/api/user/${id}`)
@@ -91,7 +90,6 @@ export function getUserData(id) {
 }
 
 export function getUnsplashUser(username) {
-    console.log('action: retrieving unsplash user')
     return {
         type: GET_UNSPLASH_USER,
         payload: axios.get(`https://api.unsplash.com/users/${username}?client_id=${clientID}`)
@@ -111,6 +109,7 @@ export function likePhoto(user, photo) {
         }
     }
 }
+
 //----------------------------LAYOUT
 
 export function layoutTile() {

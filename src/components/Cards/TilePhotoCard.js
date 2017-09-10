@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-// import {Button, Popup} from 'semantic-ui-react';
 import {Link} from 'react-router-dom';
 
 
@@ -49,7 +48,6 @@ class TilePhotoCard extends Component {
 
     render() {
 
-
         const classHidden = {
             "display": "none"
         }
@@ -61,7 +59,6 @@ class TilePhotoCard extends Component {
         }
 
         let isLiked = this.state.isLiked;
-
 
         return(
             <main 
