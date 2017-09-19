@@ -35,12 +35,8 @@ class TilePhotoCard extends Component {
 
     handleLike(e) {
         e.preventDefault()
-        this.state.isLiked ?
         this.setState({
-            isLiked:false
-        }) :
-        this.setState({
-            isLiked: true
+            isLiked: !this.state.isLiked
         })
     }
 
