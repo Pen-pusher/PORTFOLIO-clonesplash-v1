@@ -78,6 +78,15 @@ passport.use(new Auth0Strategy({
 //     db.project.checkPermission([req.session.user.id, req.body.id])
 //     .then()
 // }
+let loginRoot;
+const redirectMiddleware = (req, res, next) => {
+  if (req.query.source) {
+    loginRoot = req.query.source;
+    return next();
+  } else {
+    return {successRedirect: `${appURL}/${loginRoot}`}
+  }
+}
 
 
 passport.serializeUser((userA, done) => {
@@ -92,7 +101,7 @@ passport.deserializeUser((userB, done) => {
     done(null, userC);
 });
 
-app.get('/auth', passport.authenticate('auth0'));
+app.get('/auth', redirectMiddleware, passport.authenticate('auth0'));
 
 app.get('/auth/callback',
     passport.authenticate('auth0', {successRedirect: `${appURL}/account`}),
