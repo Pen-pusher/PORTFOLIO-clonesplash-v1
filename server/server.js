@@ -1,17 +1,17 @@
 require('dotenv').config();
 const express = require('express')
-, bodyParser = require('body-parser')
-, massive = require('massive')
-, cors = require('cors')
-, session = require('express-session')
-, passport = require('passport')
-, Auth0Strategy = require('passport-auth0')
-, authConfig = require('./../config/auth-config')
-, dbConfig = require('./../config/db-config')
-, app = express()
-, path = require('path')
-, port = process.env.PORT
-, appURL = process.env.REACT_APP_BASEURL;
+    , bodyParser = require('body-parser')
+    , massive = require('massive')
+    , cors = require('cors')
+    , session = require('express-session')
+    , passport = require('passport')
+    , Auth0Strategy = require('passport-auth0')
+    , authConfig = require('./../config/auth-config')
+    , dbConfig = require('./../config/db-config')
+    , app = express()
+    , path = require('path')
+    , port = process.env.PORT
+    , appURL = process.env.REACT_APP_BASEURL;
 
 //-------------------------CONTROLLERS--------------------------//
 
@@ -70,15 +70,7 @@ passport.use(new Auth0Strategy({
 ));
 
 
-// function middleware(req, res, next) {
-//     if(!req.session.user) {
-//         return res.status(403).send('No such user')
-//     }
-//     let db = req.app.get('db');
-//     db.project.checkPermission([req.session.user.id, req.body.id])
-//     .then()
-// }
-let loginRoot;
+
 const redirectMiddleware = (req, res, next) => {
   if (req.query.source) {
     loginRoot = req.query.source;
@@ -101,7 +93,7 @@ passport.deserializeUser((userB, done) => {
     done(null, userC);
 });
 
-app.get('/auth', redirectMiddleware, passport.authenticate('auth0'));
+app.get('/auth', passport.authenticate('auth0'));
 
 app.get('/auth/callback',
     passport.authenticate('auth0', {successRedirect: `${appURL}/account`}),
