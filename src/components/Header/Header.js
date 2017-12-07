@@ -115,10 +115,10 @@ class Header extends Component {
                         </li>
                     </ul>
                     <div className="header-mobile-login" style={this.props.userSession ? classHidden : null}>
-                        <a className="hm-login-anchor" href="http://localhost:3005/auth">
+                        <a className="hm-login-anchor" href={process.env.AUTH_LOGIN}>
                             Login
                         </a>
-                        <a className="hm-join-anchor" href="http://localhost:3005/auth">
+                        <a className="hm-join-anchor" href={process.env.AUTH_LOGIN}>
                             Join
                         </a>
                     </div>
