@@ -175,11 +175,11 @@ class Header extends Component {
                     </div>
                     <div className="header-login-wrapper" style={this.props.userSession ? classHidden : null}>
                         <div>
-                            <a className="header-login-anchor" href="http://localhost:3005/auth">
+                            <a className="header-login-anchor" href={process.env.REACT_APP_LOGIN}>
                                 <div className="header-login-left-divider"></div>
                                 Login
                             </a>
-                            <a className="header-signup-anchor" href="http://localhost:3005/auth">
+                            <a className="header-signup-anchor" href={process.env.REACT_APP_LOGIN}>
                                 Join free
                             </a>
                         </div>
