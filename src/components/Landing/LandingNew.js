@@ -16,10 +16,10 @@ const LandingNew = function(props) {
                         Gifted by the world’s most generous community of photographers. 🎁
                     </h2>
                     <div className="landing-submit-photo" style={props.userSession ? classHidden : null}>
-                        <a className="landing-submit-photo-anchor" href="#">
+                        <a className="landing-submit-photo-anchor">
                             Submit a photo
                         </a>
-                    </div>                    
+                    </div>
                 </div>
             </div>
             <LandingRender view={'New'} />

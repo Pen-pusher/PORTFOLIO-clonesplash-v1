@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {getCurrentUser, setViewWidth} from './../../redux/mainReducer';
-import axios from 'axios';
 
 
 class Header extends Component {
@@ -21,17 +20,17 @@ class Header extends Component {
             this.props.setViewWidth(1)
         }
         else if (window.innerWidth < 1000) {
-            this.props.setViewWidth(2)            
+            this.props.setViewWidth(2)
         }
         else {
             this.props.setViewWidth(3)
         }
-    }    
+    }
 
     componentDidMount() {
         window.addEventListener("load", this.trackDimensions)
         window.addEventListener("resize", this.trackDimensions)
-        
+
         if(!this.props.currentUser.username) {
         this.props.getCurrentUser()
         }
@@ -50,7 +49,7 @@ class Header extends Component {
         window.removeEventListener("resize", this.trackDimensions)
         window.removeEventListener("load", this.trackDimensions)
     }
-    
+
 
     render() {
 
@@ -58,9 +57,9 @@ class Header extends Component {
             "color":"#111111"
         }
 
-        const inactiveAnchor = {
-            "color":"999999"
-        }
+        // const inactiveAnchor = {
+        //     "color":"999999"
+        // }
 
         const classHidden = {
             "display":"none"
@@ -70,7 +69,6 @@ class Header extends Component {
             "width":"20%"
         }
 
-        console.log(window.location.pathname)
         return(
             <main className="header">
                 <nav className="header-wrapper-mobile">
@@ -111,7 +109,7 @@ class Header extends Component {
                         <li className="header-mobile-user" style={this.props.userSession ? mobileUser : classHidden}>
                             <Link to={`/user/${this.props.currentUser.username}`}>
                                 <a className="header-mobile-profilepic">
-                                    <img src={this.props.currentUser.profilepic} />
+                                    <img alt="pp" src={this.props.currentUser.profilepic} />
                                 </a>
                             </Link>
                         </li>
@@ -122,7 +120,7 @@ class Header extends Component {
                         </a>
                         <a className="hm-join-anchor" href="http://localhost:3005/auth">
                             Join
-                        </a>                        
+                        </a>
                     </div>
                 </nav>
                 <nav className="header-wrapper">
@@ -151,18 +149,18 @@ class Header extends Component {
                         <ul className="header-menu-list-wrapper">
                             <li className="header-menu-list-item">
                                 <Link to="/" className="header-menu-list-anchor">
-                                    <a className="header-menu-list-anchor" href="#" style={this.state.activeToggle === 'Home' ? activeAnchor : null}>
+                                    <a className="header-menu-list-anchor" style={this.state.activeToggle === 'Home' ? activeAnchor : null}>
                                         Home
                                     </a>
                                 </Link>
                             </li>
                             <li className="header-menu-list-item">
-                                <a className="header-menu-list-anchor" href="#">
+                                <a className="header-menu-list-anchor">
                                     Collections
                                 </a>
                             </li>
                             <li className="header-menu-list-item" style={this.props.userSession ? classHidden : null}>
-                                <a className="header-menu-list-anchor" href="#">
+                                <a className="header-menu-list-anchor">
                                     About
                                 </a>
                             </li>
@@ -188,11 +186,11 @@ class Header extends Component {
                     </div>
                     <div className="header-user-wrapper" style={this.props.userSession ? null : classHidden}>
                         <div className="header-submit-photo">
-                            <a href="#" className="header-submit-photo-anchor">
+                            <a className="header-submit-photo-anchor">
                                 Submit a photo
                             </a>
                         </div>
-                        <a href="#">
+                        <a>
                             <div className="header-notifications">
                                 <svg fill="#999999" version="1.1" viewBox="0 0 32 32" width="20" height="20" aria-hidden="false">
                                     <path d="M18.9 30.6c-7.4 2.6-14.2 1.4-15.7-2.8-.5-1.5-.2-3.2.8-4.9.5-.8.5-2.1.2-3l-1.4-3.9c-.9-2.6-.7-5.2.3-7.5.7-1.7 2-3.1 3.5-4.1l-.4-1c-.4-1.1.2-2.2 1.3-2.6l1.9-.7c1.1-.4 2.2.2 2.6 1.3l.4 1c2-.2 4.1.3 5.9 1.4 1.9 1.2 3.5 3.1 4.3 5.4l1.4 3.9c.3.8 1.2 1.9 2 2.2 1.8.7 3 1.8 3.6 3.4 1.4 4.2-3.2 9.3-10.7 11.9zm7.3-10.8c-.6-1.7-5.2-2.8-11.3-.7-6.1 2.1-9 5.8-8.4 7.5.6 1.7 5.2 2.8 11.3.7 6.1-2.1 9-5.8 8.4-7.5zm-7.2.8l.1.8c0 1.9-1.1 3.6-2.7 4.4-.6.3-1.3.6-2.1.6h-.1c-1.6 0-2.9-.8-3.9-1.9-.1-.2-.1-.5.1-.6 1.1-.9 2.8-2 5.3-2.8 1-.3 2-.6 2.9-.8.1-.1.3.1.4.3z"></path>
@@ -200,9 +198,9 @@ class Header extends Component {
                             </div>
                         </a>
                         <Link to={`/user/${this.props.username}`}>
-                            <a href="#">
+                            <a>
                                 <div className="header-profile-pic">
-                                        <img src={this.props.currentUser.profilepic} />
+                                        <img alt="pp" src={this.props.currentUser.profilepic} />
                                 </div>
                             </a>
                         </Link>

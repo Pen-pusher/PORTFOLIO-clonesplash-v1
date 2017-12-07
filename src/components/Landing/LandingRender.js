@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
-import axios from 'axios';
 
 import TilePhotoCard from './../Cards/TilePhotoCard';
 import ListPhotoCard from './../Cards/ListPhotoCard';
@@ -11,26 +10,48 @@ import {addNewPhotos,
         layoutTile,
         layoutList,
         setViewWidth} from './../../redux/mainReducer';
-import {clientID} from './../../trip/explashID'; 
 
 class LandingRender extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            windowWidth: 3,
+            scrollPosition: 0,
             activeToggle:'Trending',
             photoArrays: [[],[],[]],
             allPhotos: [],
             pages: 1
         }
 
+        this.trackScrollY = this.trackScrollY.bind(this);
         this.parseData = this.parseData.bind(this);
         this.handleLayoutTile = this.handleLayoutTile.bind(this);
         this.handleLayoutList = this.handleLayoutList.bind(this);
     }
 
+    trackScrollY() {
+      console.log(window.scrollY > 1200)
+      console.log(this.state.pages)
+      let content = this.props.view;
+      if (window.scrollY > (this.state.pages > 2 ? this.state.pages * 2 * 600 : this.state.pages * 600)) {
+        console.log('hello')
+        if (content === 'Trending') {
+          let nextPage = this.state.pages
+          this.props.addTrendingPhotos(nextPage)
+          this.parseData(this.props[content], this.props.windowWidth)
+          nextPage++
+          this.setState({pages: nextPage})
+        } else if (content === 'New') {
+          let nextPage = this.state.pages
+          this.props.addNewPhotos(nextPage)
+          this.parseData(this.props[content], this.props.windowWidth)
+          nextPage++
+          this.setState({pages: nextPage})
+        }
+      }
+    }
 
     componentDidMount() {
+        window.addEventListener('scroll', this.trackScrollY)
         let content = this.props.view;
         if(content === 'Trending') {
             let nextPage = this.state.pages
@@ -45,7 +66,7 @@ class LandingRender extends Component {
             this.parseData(this.props[content], this.props.windowWidth)
             nextPage++
             this.setState({pages: nextPage})
-        }       
+        }
         this.setState({activeToggle:this.props.view})
     }
 
@@ -55,6 +76,7 @@ class LandingRender extends Component {
         // this.parseData(nextProps.dummyData[content], num)
         this.parseData(nextProps[content], num)
     }
+
 
     parseData(arr, count) {
         if (arr.length) {
@@ -107,7 +129,7 @@ class LandingRender extends Component {
 
 
     render() {
-
+        console.log(this.state.scrollPosition, window.scrollY)
         const renderListMobile = this.state.allPhotos.map(item => {
             return <MobilePhotoCard
                 key={item.id}
@@ -121,7 +143,7 @@ class LandingRender extends Component {
                 />
         })
         const renderListOne = this.state.photoArrays[0].map(item => {
-            return <TilePhotoCard 
+            return <TilePhotoCard
                 key={item.id}
                 photographer={item.user.name}
                 username={item.user.username}
@@ -133,7 +155,7 @@ class LandingRender extends Component {
                 />
         })
         const renderListTwo = this.state.photoArrays[1].map(item => {
-            return <TilePhotoCard 
+            return <TilePhotoCard
                 key={item.id}
                 photographer={item.user.name}
                 username={item.user.username}
@@ -142,11 +164,10 @@ class LandingRender extends Component {
                 liked={item.liked_by_user}
                 imgUrl={item.urls.small}
                 download={item.links.download}
-
                 />
         })
         const renderListThree = this.state.photoArrays[2].map(item => {
-            return <TilePhotoCard 
+            return <TilePhotoCard
                 key={item.id}
                 photographer={item.user.name}
                 username={item.user.username}
@@ -168,7 +189,7 @@ class LandingRender extends Component {
                 likes={item.likes}
                 liked={item.liked_by_user}
                 download={item.links.download}
-                />            
+                />
         })
 
         const threeColumns = {
@@ -176,7 +197,7 @@ class LandingRender extends Component {
         }
 
         const twoColumns = {
-            "width": "calc(50% - 16px)"          
+            "width": "calc(50% - 16px)"
         }
 
         const mobileColumn = {
@@ -184,7 +205,7 @@ class LandingRender extends Component {
         }
 
         const tileColumn = {
-            "width": "calc(100% - 16px)"            
+            "width": "calc(100% - 16px)"
         }
 
         const hideDisplay = {
@@ -217,28 +238,28 @@ class LandingRender extends Component {
         const renderTileJSX = () => {
             if (this.props.windowWidth === 1) {
                 return (
-                <div className="landing-content-wrapper">                       
-                    <div className="lcw-div" 
+                <div className="landing-content-wrapper">
+                    <div className="lcw-div"
                         style={mobileColumn}>
                         {renderListMobile}
                     </div>
-                </div>                    
+                </div>
                 )
             }
             return (
-                <div className="landing-content-wrapper">                       
-                    <div className="lcw-div" 
+                <div className="landing-content-wrapper">
+                    <div className="lcw-div"
                         style={setColumnStyleOne()}
                         >
                         {this.props.windowWidth === 1 ? renderListMobile : renderListOne}
                     </div>
-                    <div className="lcw-div" 
-                        style={setColumnStyleTwo()} 
+                    <div className="lcw-div"
+                        style={setColumnStyleTwo()}
                         >
                         {renderListTwo}
-                    </div>                    
+                    </div>
                     <div className="lcw-div"
-                        style={threeColumns}
+                        // style={threeColumns}
                         style={this.props.windowWidth < 3 ? hideDisplay : null}
                         >
                         {renderListThree}
@@ -249,8 +270,8 @@ class LandingRender extends Component {
 
         const renderListJSX = () => {
             return (
-                <div className="landing-content-wrapper">                       
-                    <div className="lcw-div" 
+                <div className="landing-content-wrapper">
+                    <div className="lcw-div"
                         style={tileColumn}
                         >
                         {this.props.windowWidth === 1 ? renderListMobile : renderListAll}
@@ -283,7 +304,7 @@ class LandingRender extends Component {
                     </span>
                     <span className="landing-render-layout-selectors">
                         <div className="lrls-div">
-                            <button 
+                            <button
                                 className="lrls-button"
                                 style={this.props.photoLayout === 'List' ? activeAnchor : null}
                                 onClick={this.handleLayoutList}>

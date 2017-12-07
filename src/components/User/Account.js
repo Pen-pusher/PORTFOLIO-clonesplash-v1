@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
+// import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import axios from 'axios';
 import {updateUser, getCurrentUser} from './../../redux/mainReducer';
@@ -29,7 +29,6 @@ class Account extends Component {
         this.handleInstagramInput = this.handleInstagramInput.bind(this);
         this.handleLocationInput = this.handleLocationInput.bind(this);
         this.handleBioInput = this.handleBioInput.bind(this);
-
         this.handleUserUpdate = this.handleUserUpdate.bind(this);
     }
 
@@ -94,7 +93,7 @@ class Account extends Component {
         )
         this.props.updateUser(body);
     }
-    
+
     handleFirstNameInput(e) {
         this.setState({
             firstNameInput: e.target.value
@@ -143,10 +142,8 @@ class Account extends Component {
         })
     }
 
-    
+
     render() {
-        
-        console.log('state now: ', this.state)
 
         const bioStyle = {
             "height":"108px"
@@ -155,7 +152,7 @@ class Account extends Component {
         // const firstName = this.state.currentUser.name ? this.state.currentUser.name.split(' ')[0] : '';
         // const lastName = this.state.currentUser.name ? this.state.currentUser.name.split(' ')[1] : '';
         // const email = this.state.currentUser.email ? this.state.currentUser.email : '';
-        
+
         return(
             <main className="user-account-wrapper">
                 <div className="user-account-content">
@@ -164,7 +161,7 @@ class Account extends Component {
                         <div className="user-account-row">
                             <div className="user-account-profilepic">
                                 <div className="uap-div">
-                                    <img src={this.props.currentUser.profilepic} />
+                                    <img alt="pp" src={this.props.currentUser.profilepic} />
                                     <br /><br /><br /><br /><br />
                                 </div>
                                 <div className="uap-shim"></div>
@@ -181,7 +178,7 @@ class Account extends Component {
                                 <label for="user-email">Email address</label>
                                 <input className="user-email"
                                     onChange={this.handleEmailInput}
-                                    value={this.state.emailInput}/>                                
+                                    value={this.state.emailInput}/>
                             </div>
                         </div>
                         <div className="user-account-row">
@@ -195,7 +192,7 @@ class Account extends Component {
                             <label for="user-instagram">Instagram</label>
                             <input className="user-instagram"
                                 onChange={this.handleInstagramInput}
-                                placeholder="@"/>                                
+                                placeholder="@"/>
                             <label for="user-location">Location</label>
                             <input className="user-location"
                                 onChange={this.handleLocationInput} />
@@ -204,7 +201,7 @@ class Account extends Component {
                                 style={bioStyle}
                                 rows="4"
                                 maxLength="240"
-                                onChange={this.handleBioInput}/>                                                            
+                                onChange={this.handleBioInput}/>
                         </div>
                         <button onClick={this.handleUserUpdate} className="user-account-update">Update account</button>
                     </div>

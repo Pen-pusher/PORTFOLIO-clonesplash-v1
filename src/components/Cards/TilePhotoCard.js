@@ -17,7 +17,7 @@ class TilePhotoCard extends Component {
     }
 
     componentDidMount() {
-        this.props.liked ? this.setState({isLiked:true}) : null;
+        this.props.liked ? this.setState({isLiked:true}) : this.setState({isLiked:false});
     }
 
 
@@ -57,14 +57,14 @@ class TilePhotoCard extends Component {
         let isLiked = this.state.isLiked;
 
         return(
-            <main 
+            <main
                 className="tile-card-wrapper"
                 onMouseEnter={this.handleMouseEnter}
                 onMouseLeave={this.handleMouseLeave}
             >
                 <div className="tlw-div">
-                    <a href="#" className="tc-photo-anchor">
-                        <img className="tile-card-img" src={this.props.imgUrl}/>
+                    <a className="tc-photo-anchor">
+                        <img alt="img" className="tile-card-img" src={this.props.imgUrl}/>
                     <div className="tc-top-wrapper" style={this.state.mouseOver ? null : classHidden}>
                         <div className="tc-collections-div">
                             <a title="Add to collections" className="tc-collections-anchor">
@@ -88,8 +88,8 @@ class TilePhotoCard extends Component {
                             <Link to={`/user/${this.props.username}`}>
                                 <a>
                                      <div className="tc-profile-pic">
-                                        <img src={this.props.profilePic} />
-                                    </div> 
+                                        <img alt="pp" src={this.props.profilePic} />
+                                    </div>
                                 </a>
                             </Link>
                             <Link to={`/user/${this.props.username}`}>

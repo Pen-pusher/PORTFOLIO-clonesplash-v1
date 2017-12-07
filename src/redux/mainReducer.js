@@ -3,7 +3,8 @@ import {trendingPhotos} from './dummyData/un-data-trending';
 import {photoData} from './dummyData/un-data-photo';
 import {userData} from './dummyData/un-data-user';
 import axios from 'axios';
-import {clientID} from './../trip/explashID';
+// import {clientID} from './../trip/explashID';
+const clientID = process.env.REACT_APP_EXPLASH_ID;
 
 
 const initialState = {
@@ -159,7 +160,7 @@ export default function reducer(state=initialState, action) {
                 {},
                 state,
                 {Trending: [...state.Trending, ...action.payload.data]}
-            );            
+            );
         case GET_NEW_PHOTOS_PENDING:
             return state;
         case GET_NEW_PHOTOS_FULFILLED:

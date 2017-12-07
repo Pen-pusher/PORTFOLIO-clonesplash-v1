@@ -8,21 +8,17 @@ const classLiked = {
     "background":"#F15151"
 }
 
-const handleLike = () => {
-    isLiked ? isLiked = false : isLiked = true;
-}
-
 const MobilePhotoCard = (props) => {
     return(
         <main className="mobile-card-wrapper">
             <div className="tile-card-header">
                 <div className="mc-user-div">
-                    <a href="#">
+                    <a>
                         <div className="mc-profile-pic">
-                            <img src={props.profilePic} />
-                        </div> 
+                            <img alt="pp" src={props.profilePic} />
+                        </div>
                     </a>
-                    <a href="#">
+                    <a>
                         <span>
                             {props.photographer}
                         </span>
@@ -31,8 +27,8 @@ const MobilePhotoCard = (props) => {
             </div>
             <div className="mobile-card-body">
                 <div className="mc-photo-wrapper">
-                    <a href="#" className="mc-photo-anchor">
-                        <img className="mobile-card-img" src={props.imgUrl} />
+                    <a className="mc-photo-anchor">
+                        <img alt="img" className="mobile-card-img" src={props.imgUrl} />
                     </a>
                 </div>
             </div>
@@ -56,7 +52,7 @@ const MobilePhotoCard = (props) => {
                                 <path d="M14 3h4v26h-4zM29 14v4h-26v-4z"></path>
                             </svg>
                         </a>
-                    </div>                    
+                    </div>
                 </div>
                 <div className="mc-footer-right">
                     <div className="mc-download-div">
@@ -69,7 +65,7 @@ const MobilePhotoCard = (props) => {
                             </svg>
                         </a>
                     </div>
-                    
+
                 </div>
             </div>
         </main>

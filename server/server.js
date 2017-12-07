@@ -6,12 +6,9 @@ const express = require('express')
     , session = require('express-session')
     , passport = require('passport')
     , Auth0Strategy = require('passport-auth0')
-    , authConfig = require('./../config/auth-config')
-    , dbConfig = require('./../config/db-config')
     , app = express()
     , path = require('path')
-    , port = process.env.PORT
-    , appURL = process.env.REACT_APP_BASEURL;
+    , port = process.env.PORT;
 
 //-------------------------CONTROLLERS--------------------------//
 
@@ -22,22 +19,23 @@ const userCtrl = require('./controllers/user-controller');
 app.use(bodyParser.json());
 app.use(cors());
 app.use(session({
-    secret:authConfig.sessionSecret,
+    secret: process.env.SESSION_SECRET,
     resave:false,
     saveUninitialized:false
 }));
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.use( express.static( `${__dirname}/../build` ) );
+
 //--------------------------AUTH0-------------------------------//
 
 passport.use(new Auth0Strategy({
-    domain: authConfig.domain,
-    clientID: authConfig.clientID,
-    clientSecret: authConfig.clientSecret,
-    callbackURL: 'http://localhost:3005/auth/callback'
+    domain: process.env.AUTH_DOMAIN,
+    clientID: process.env.AUTH_CLIENT_ID,
+    clientSecret: process.env.AUTH_CLIENT_SECRET,
+    callbackURL:  process.env.AUTH_CALLBACK
 },  function(accessToken, refreshToken, extraParams, profile, done) {
-        console.log(profile)
         let db = app.get('db');
         db.queries.user.getUserByAuthId([profile.id])
         .then(user => {
@@ -71,14 +69,14 @@ passport.use(new Auth0Strategy({
 
 
 
-const redirectMiddleware = (req, res, next) => {
-  if (req.query.source) {
-    loginRoot = req.query.source;
-    return next();
-  } else {
-    return {successRedirect: `${appURL}/${loginRoot}`}
-  }
-}
+// const redirectMiddleware = (req, res, next) => {
+//   if (req.query.source) {
+//     loginRoot = req.query.source;
+//     return next();
+//   } else {
+//     return {successRedirect: `${appURL}/${loginRoot}`}
+//   }
+// }
 
 
 passport.serializeUser((userA, done) => {
@@ -96,7 +94,7 @@ passport.deserializeUser((userB, done) => {
 app.get('/auth', passport.authenticate('auth0'));
 
 app.get('/auth/callback',
-    passport.authenticate('auth0', {successRedirect: `${appURL}/account`}),
+    passport.authenticate('auth0', {successRedirect: `${process.env.REACT_APP_BASEURL}/`}),
     (req, res) => {send(req.user)
 });
 
@@ -110,7 +108,7 @@ app.get('/api/user/:id', userCtrl.getUserById);
 
 //----------------------------DB/LISTEN--------------------------//
 
-massive(dbConfig.connectionString)
+massive(process.env.CONNECTION_STRING)
     .then(db => {
         app.set('db', db);
         app.listen(port, () => {console.log('listening on port ', port)});

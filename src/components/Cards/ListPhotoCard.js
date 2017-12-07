@@ -13,16 +13,16 @@ const classLiked = {
 
 const ListPhotoCard = (props) => {
     isLiked = (props.userLikes.filter(obj => obj.photo === props.id));
-    console.log(isLiked)
-    
+    console.log('liked', isLiked)
+
     return(
         <main className="list-card-wrapper">
             <div className="list-card-header">
             </div>
             <div className="list-card-body">
                 <div className="lc-photo-wrapper">
-                    <a href="#" className="lc-photo-anchor">
-                        <img className="list-card-img" src={props.imgUrl} />
+                    <a className="lc-photo-anchor">
+                        <img alt="img" className="list-card-img" src={props.imgUrl} />
                     </a>
                 </div>
             </div>
@@ -47,15 +47,15 @@ const ListPhotoCard = (props) => {
                             </svg>
                             <span>Collect</span>
                         </a>
-                    </div>                    
+                    </div>
                 </div>
                 <div className="lc-user-div">
-                    <a href="#">
+                    <a>
                         <div className="lc-profile-pic">
-                            <img src={props.profilePic} />
-                        </div> 
+                            <img alt="pp" src={props.profilePic} />
+                        </div>
                     </a>
-                    <a href="#">
+                    <a>
                         <span>
                             {props.photographer}
                         </span>
@@ -73,7 +73,7 @@ const ListPhotoCard = (props) => {
                 </div>
             </div>
         </main>
-    )    
+    )
 }
 
 function mapStateToProps(state) {
