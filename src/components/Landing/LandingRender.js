@@ -29,10 +29,8 @@ class LandingRender extends Component {
     }
 
     trackScrollY() {
-      console.log(window.scrollY > 1200)
-      console.log(this.state.pages)
       let content = this.props.view;
-      if (window.scrollY > (this.state.pages > 2 ? this.state.pages * 2 * 600 : this.state.pages * 600)) {
+      if (window.scrollY > (this.state.pages > 2 ? this.state.pages * 2 * 800 : this.state.pages * 600)) {
         console.log('hello')
         if (content === 'Trending') {
           let nextPage = this.state.pages
@@ -129,7 +127,6 @@ class LandingRender extends Component {
 
 
     render() {
-        console.log(this.state.scrollPosition, window.scrollY)
         const renderListMobile = this.state.allPhotos.map(item => {
             return <MobilePhotoCard
                 key={item.id}
